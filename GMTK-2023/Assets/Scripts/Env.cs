@@ -28,9 +28,21 @@ public class Env : MonoBehaviour
     // public enum Items {Potion, Money, Sword};
     // public enum Enemies {Slime, Scorpion, Wolf, Guard, Orc};
 
-    public enum Slots {Empty, Potion, Money, Sword, Slime, Scorpion, Wolf, Guard, Orc};
+    public enum Slots {Empty, Potion, Coins, Chest, Slime, Scorpion, Wolf, Guard, Orc};
 
-    public const int TileSize = 11;
+    public enum Stats {Coins, PrincessLevel, PrincessHealth, PrincessAttack, PrincessEquipLeft, PrincessEquipRight};
+
+    public enum Equips {Empty, WoodenSword, IronSword, GoldSword, WoodenShield, IronShield, GoldShield};
+
+    public int Coins = 0;
+    public int PrincessLevel = 1;
+    public int PrincessHealth = 3;
+    public int PrincessAttack = 1;
+    public Equips PrincessEquipLeft = Equips.Empty;
+    public Equips PrincessEquipRight = Equips.Empty;
+
+    public const int TileSize = 10;
+    public const int TileGridGap = 1;
 
     private void FillSpot((Building B, Merchandise M) building)
     {

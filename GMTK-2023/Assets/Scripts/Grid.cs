@@ -8,7 +8,9 @@ public class Grid : MonoBehaviour
     [SerializeField] public GameObject Tile;
 
     private void SpawnTile (int i, int j) {
-        GameObject tile = Instantiate(Tile, new Vector3(i * Env.TileSize, 0, j * Env.TileSize), Quaternion.identity);
+        GameObject tile = Instantiate(Tile, new Vector3(i * (Env.TileSize + Env.TileGridGap), 0, j * (Env.TileSize + Env.TileGridGap)), Quaternion.identity);
+        // tile.GetComponent<Tile>().path = Env.Paths.Straight;
+        // tile.GetComponent<Tile>().slot = Env.Slots.Potion;
     }
 
     void Start()
