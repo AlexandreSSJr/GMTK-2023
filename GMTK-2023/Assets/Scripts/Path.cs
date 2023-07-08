@@ -25,27 +25,36 @@ public class Path : MonoBehaviour
         }
     }
 
-    private void SetStraight () {
+    private void SetNorth () {
         this.transform.GetChild(0).gameObject.SetActive(true);
     }
 
-    private void SetLeft () {
+    private void SetSouth () {
         this.transform.GetChild(1).gameObject.SetActive(true);
     }
 
-    private void SetRight () {
+    private void SetWest () {
         this.transform.GetChild(2).gameObject.SetActive(true);
+    }
+
+    private void SetEast () {
+        this.transform.GetChild(3).gameObject.SetActive(true);
     }
 
     public void CheckType () {
         if (type != Env.Paths.Empty) {
             Reset();
-            if (type == Env.Paths.Straight) {
-                SetStraight();
-            } else if (type == Env.Paths.Left) {
-                SetLeft();
-            } else if (type == Env.Paths.Right) {
-                SetRight();
+            if (type == Env.Paths.North) {
+                SetNorth();
+            }
+            if (type == Env.Paths.South) {
+                SetSouth();
+            }
+            if (type == Env.Paths.West) {
+                SetWest();
+            }
+            if (type == Env.Paths.East) {
+                SetEast();
             }
         }
     }

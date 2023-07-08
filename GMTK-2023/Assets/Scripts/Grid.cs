@@ -6,11 +6,18 @@ public class Grid : MonoBehaviour
     [SerializeField] public int Vertical = 3;
 
     [SerializeField] public GameObject Tile;
+    
+    [SerializeField] public GameObject Gate;
 
     private void SpawnTile (int i, int j) {
         GameObject tile = Instantiate(Tile, new Vector3(i * (Env.TileSize + Env.TileGridGap), 0, j * (Env.TileSize + Env.TileGridGap)), Quaternion.identity);
-        // tile.GetComponent<Tile>().path = Env.Paths.Straight;
-        // tile.GetComponent<Tile>().slot = Env.Slots.Potion;
+        tile.GetComponent<Tile>().entry = Env.Paths.Empty;
+        tile.GetComponent<Tile>().exit = Env.Paths.Empty;
+        tile.GetComponent<Tile>().slot = Env.Slots.Empty;
+    }
+
+    private void PlaceGate () {
+        Gate.transform.Translate(new Vector3((Horizontal * Env.TileSize) - 1, 0, (Vertical - 1) * (Env.TileSize + Env.TileGridGap)));
     }
 
     void Start()
@@ -20,6 +27,7 @@ public class Grid : MonoBehaviour
                 SpawnTile(i, j);
             }
         }
+        PlaceGate();
     }
 
     // Update is called once per frame

@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - Tile
   - Princess
+  - Slot
+  - Gate
   layers:
   - Default
   - TransparentFX
