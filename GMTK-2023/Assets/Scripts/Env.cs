@@ -16,6 +16,7 @@ public class Env : MonoBehaviour
 
     public static float PrincessSpeed = 0.01f;
     public int PrincessLevel = 1;
+    public int PrincessMaxHealth = 3;
     public int PrincessHealth = 3;
     public int PrincessAttack = 1;
     public Equips PrincessEquipLeft = Equips.Empty;
