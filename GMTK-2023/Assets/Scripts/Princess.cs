@@ -126,38 +126,22 @@ public class Princess : MonoBehaviour
             }
             if (other.tag == "Slot") {
                 // Implement Slot (Item/Enemy) interaction here
-                // Verificar qual objeto est� dentro do Slot
-                Potion potion = other.GetComponentInChildren<Potion>();
-                Chest chest = other.GetComponentInChildren<Chest>();
-                Coins coins = other.GetComponentInChildren<Coins>();
+                Env.Slots currentSlot = other.GetComponent<Tile>().slot;
 
-                if (potion != null)
-                {
-                    // Aumentar a vida do personagem
-                    if (Env.Instance.PrincessHealth < 3 && Env.Instance.PrincessHealth > 0)
-                    {
-                        Env.Instance.PrincessHealth++;
-                        
-                    }
-                    print("Voc� coletou uma po��o! Sua vida aumentou em +1.");
+                if (currentSlot == Env.Slots.Coins) {
+                    Env.Instance.Coins += Env.CoinsAmount;
+                } else if (currentSlot == Env.Slots.Slime) {
+                    Env.Instance.PrincessHealth -= Env.SlimeDamage;
+                } else if (currentSlot == Env.Slots.Sword) {
+                    Env.Instance.PrincessAttack -= Env.SwordDamageUpgrade;
+                    Env.Instance.PrincessEquipLeft = Env.Equips.IronSword;
+                } else if (currentSlot == Env.Slots.Shield) {
+                    Env.Instance.PrincessMaxHealth += Env.ShieldDefenseUpgrade;
+                    Env.Instance.PrincessEquipLeft = Env.Equips.IronShield;
                 }
 
-                if (chest != null)
-                {
-                    // Implementar intera��o com o objeto "Chest" aqui
-                    
-                    print("Voc� encontrou um ba�!");
-                }
-
-                if (coins != null)
-                {
-                    // Implementar intera��o com o objeto "Coins" aqui
-                    Env.Instance.Coins++;
-                    print("Coletou uma moedinha top");
-                    
-                }
-
-                //print("You collected an item!");
+                other.GetComponent<Tile>().slot = Env.Slots.Empty;
+                other.GetComponent<Tile>().GetComponent<Slot>().CheckSlot();
             }
             if (other.tag == "Gate") {
                 // Implement Next Phase or End Game here

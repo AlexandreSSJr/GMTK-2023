@@ -26,4 +26,9 @@ public class SoundController : MonoBehaviour
             muteImage.sprite = soundOff;
         }
     }
+
+    public void MusicVolume (float value)
+    {
+        backgroundMusic.volume = value;
+    }
 }
