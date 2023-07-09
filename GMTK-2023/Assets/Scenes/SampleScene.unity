@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 48086539}
   - component: {fileID: 48086540}
+  - component: {fileID: 48086541}
   m_Layer: 0
   m_Name: UIDocument
   m_TagString: Untagged
@@ -171,6 +172,21 @@ MonoBehaviour:
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 3ae534435017ab24ab671ae83ccafe51, type: 3}
   m_SortingOrder: 0
+--- !u!114 &48086541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48086538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e139646e384224f8d342d214cec65a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entry: 0
+  exit: 0
+  slot: 0
 --- !u!1 &175066546
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,7 +467,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1464732501}
-  - {fileID: 1041004500}
+  - {fileID: 1125585907}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -614,6 +630,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1125585907 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0e2e0e61b9044814ba45fee2bc2ed45b, type: 3}
+  m_PrefabInstance: {fileID: 1622656960}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1396614643
 GameObject:
   m_ObjectHideFlags: 0
