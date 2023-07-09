@@ -16,6 +16,8 @@ public class Path : MonoBehaviour
         Env.Paths tileEntry = this.transform.GetComponentInParent<Tile>().entry;
         Env.Paths tileExit = this.transform.GetComponentInParent<Tile>().exit;
 
+        Reset();
+
         if (tileEntry != Env.Paths.Empty) {
             ShowPath(tileEntry);
         }
@@ -27,7 +29,6 @@ public class Path : MonoBehaviour
     
     void Start()
     {
-        Reset();
         CheckPaths();
     }
 }

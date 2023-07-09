@@ -10,28 +10,31 @@ public class Princess : MonoBehaviour
 
     private void CheckTileEntry (Collider other) {
         if (other && other.GetComponent<Tile>() && other.GetComponent<Tile>().entry != Env.Paths.Empty) {
+
             float jumpDistance = Env.TileGridGap + 1;
+            Env.Paths tileEntry = other.GetComponent<Tile>().entry;
+            Env.Paths tileExit = other.GetComponent<Tile>().exit;
+
             if (heading == Env.Paths.North) {
-                if (other.GetComponent<Tile>().entry == Env.Paths.South) {
+                if (tileEntry == Env.Paths.South || tileExit == Env.Paths.South) {
                     this.transform.Translate((new Vector3(jumpDistance, 0f, 0f)));
                 } else {
                     walking = false;
                 }
             } else if (heading == Env.Paths.South) {
-                if (other.GetComponent<Tile>().entry == Env.Paths.North) {
+                if (tileEntry == Env.Paths.North || tileExit == Env.Paths.North) {
                     this.transform.Translate((new Vector3(-jumpDistance, 0f, 0f)));
                 } else {
                     walking = false;
-                    print("Whoops");
                 }
             } else if (heading == Env.Paths.West) {
-                if (other.GetComponent<Tile>().entry == Env.Paths.East) {
+                if (tileEntry == Env.Paths.East || tileExit == Env.Paths.East) {
                     this.transform.Translate((new Vector3(0f, 0f, jumpDistance)));
                 } else {
                     walking = false;
                 }
             } else if (heading == Env.Paths.East) {
-                if (other.GetComponent<Tile>().entry == Env.Paths.West) {
+                if (tileEntry == Env.Paths.West || tileExit == Env.Paths.West) {
                     this.transform.Translate((new Vector3(0f, 0f, -jumpDistance)));
                 } else {
                     walking = false;
@@ -75,7 +78,7 @@ public class Princess : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (walking) {
             if (heading == Env.Paths.North) {

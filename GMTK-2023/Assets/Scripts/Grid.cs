@@ -11,10 +11,9 @@ public class Grid : MonoBehaviour
 
     private void SpawnTile (int i, int j) {
         GameObject tile = Instantiate(Tile, new Vector3(i * (Env.TileSize + Env.TileGridGap), 0, j * (Env.TileSize + Env.TileGridGap)), Quaternion.identity);
-        // TODO: After testing, reset all of these to Empty.
-        tile.GetComponent<Tile>().entry = Env.Paths.South;
-        tile.GetComponent<Tile>().exit = Env.Paths.North;
-        tile.GetComponent<Tile>().slot = Env.Slots.Potion;
+        tile.GetComponent<Tile>().entry = Env.Paths.Empty;
+        tile.GetComponent<Tile>().exit = Env.Paths.Empty;
+        tile.GetComponent<Tile>().slot = Env.Slots.Empty;
     }
 
     private void PlaceGate () {
