@@ -8,6 +8,12 @@ public class Princess : MonoBehaviour
     private bool exitInverted = false;
     private float tileTraversed = 0f;
     private Env.Paths currentTileExitDirection = Env.Paths.Empty;
+    private const float hopHeight = 1f;
+    private const float hopSpeed = 0.08f;
+    private bool goingUp = true;
+    private const int turnMaxAngle = 30;
+    private const int turnSpeed = 1;
+    private bool turningRight = true;
 
     private void CheckTileEntry (Collider other) {
         if (other && other.GetComponent<Tile>() && other.GetComponent<Tile>().entry != Env.Paths.Empty) {
@@ -82,6 +88,34 @@ public class Princess : MonoBehaviour
         }
     }
 
+    void HopAnimation () {
+        if (goingUp) {
+            this.transform.Find("Mesh").Translate(new Vector3(0f, hopSpeed, 0f));
+            if (this.transform.Find("Mesh").position.y >= hopHeight) {
+                goingUp = false;
+            }
+        } else {
+            this.transform.Find("Mesh").Translate(new Vector3(0f, -hopSpeed, 0f));
+            if (this.transform.Find("Mesh").position.y <= 0f) {
+                goingUp = true;
+            }
+        }
+    }
+
+    void TurnAnimation () {
+        if (turningRight) {
+            this.transform.Find("Mesh").Rotate(new Vector3(0f, turnSpeed, 0f));
+            if (this.transform.Find("Mesh").rotation.y >= turnMaxAngle) {
+                turningRight = false;
+            }
+        } else {
+            this.transform.Find("Mesh").Rotate(new Vector3(0f, -turnSpeed, 0f));
+            if (this.transform.Find("Mesh").rotation.y <= -turnMaxAngle) {
+                turningRight = true;
+            }
+        }
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other) {
@@ -141,6 +175,9 @@ public class Princess : MonoBehaviour
     void FixedUpdate()
     {
         if (walking) {
+            HopAnimation();
+            // TurnAnimation();
+
             if (heading == Env.Paths.North) {
                 this.transform.Translate((new Vector3(Env.PrincessSpeed, 0f, 0f)));
                 this.transform.Find("Mesh").rotation = Quaternion.Euler(0, -90, 0);
