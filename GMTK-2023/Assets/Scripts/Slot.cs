@@ -2,62 +2,27 @@ using UnityEngine;
 
 public class Slot : MonoBehaviour
 {
-    public Env.Slots type
-    {
-        get{
-            return type;
-        }
-        set{
-            type = value;
-            CheckType();
-        }
-    }
-
     private void Reset () {
-        int i = 0;
-        while (true){
-            if (this.transform.GetChild(i)==null) {
-                break;
-            } else {
-                this.transform.GetChild(i).gameObject.SetActive(false);
-            }
-            i++;
+        for (int i = 0; i < this.transform.childCount; i++) {
+            this.transform.GetChild(i).gameObject.SetActive(false);
         }
     }
 
-    private void SetPotion () {
-        this.transform.GetChild(0).gameObject.SetActive(true);
+    private void ShowSlot (Env.Slots slot) {
+        this.transform.Find(slot.ToString()).gameObject.SetActive(true);
     }
 
-    private void SetChest () {
-        this.transform.GetChild(1).gameObject.SetActive(true);
-    }
+    public void CheckSlot () {
+        Env.Slots tileSlot = this.transform.GetComponentInParent<Tile>().slot;
 
-    private void SetCoins () {
-        this.transform.GetChild(2).gameObject.SetActive(true);
-    }
-
-    public void CheckType () {
-        if (type != Env.Slots.Empty) {
-            Reset();
-            if (type == Env.Slots.Potion) {
-                SetPotion();
-            } else if (type == Env.Slots.Chest) {
-                SetChest();
-            } else if (type == Env.Slots.Coins) {
-                SetCoins();
-            }
+        if (tileSlot != Env.Slots.Empty) {
+            ShowSlot(tileSlot);
         }
     }
     
     void Start()
     {
         Reset();
-        CheckType();
-    }
-
-    void Update()
-    {
-
+        CheckSlot();
     }
 }
