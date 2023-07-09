@@ -14,7 +14,7 @@ public class Env : MonoBehaviour
 
     public int Coins = 0;
 
-    public static float PrincessSpeed = 0.03f;
+    public float PrincessSpeed = 0.03f;
     public int PrincessLevel = 1;
     public int PrincessMaxHealth = 3;
     public int PrincessHealth = 3;

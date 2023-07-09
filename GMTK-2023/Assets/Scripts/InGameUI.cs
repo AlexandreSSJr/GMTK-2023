@@ -22,6 +22,9 @@ public class InGameUI : MonoBehaviour
         Button buttonSword = root.Q<Button>("SwordButton");
         Button buttonShield = root.Q<Button>("ShieldButton");
         Button buttonPotion = root.Q<Button>("PotionButton");
+
+        Button buttonReset = root.Q<Button>("ResetButton");
+        Button buttonFastforward = root.Q<Button>("FastforwardButton");
         
         buttonPathSouthNorth.clicked += () => OnPathSouthNorthClicked();
         buttonPathEastWest.clicked += () => OnPathEastWestClicked();
@@ -33,6 +36,9 @@ public class InGameUI : MonoBehaviour
         buttonSword.clicked += () => OnSwordClicked();
         buttonShield.clicked += () => OnShieldClicked();
         buttonPotion.clicked += () => OnPotionClicked();
+
+        buttonReset.clicked += () => OnResetClicked();
+        buttonFastforward.clicked += () => OnFastforwardClicked();
     }
 
     private void OnPathSouthNorthClicked()
@@ -97,5 +103,16 @@ public class InGameUI : MonoBehaviour
             Env.Instance.pathEntrySelection = Env.Paths.Empty;
             Env.Instance.pathExitSelection = Env.Paths.Empty;
             Env.Instance.itemSelection = Env.Slots.Potion;
+    }
+    private void OnResetClicked()
+    {
+        Debug.Log("reset");
+        Env.Instance.PrincessSpeed = 0.03f;
+        Application.LoadLevel(Application.loadedLevel);
+    }
+    private void OnFastforwardClicked()
+    {
+        Debug.Log("ff");
+        Env.Instance.PrincessSpeed += 0.02f;
     }
 }
