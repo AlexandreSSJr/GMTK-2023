@@ -6,6 +6,11 @@ public class Tile : MonoBehaviour
     public Env.Paths exit = Env.Paths.Empty;
     public Env.Slots slot = Env.Slots.Empty;
 
+    void RandomizeRotation () {
+        int rand = Random.Range(0, 4);
+        this.transform.Find("Mesh").gameObject.transform.Rotate(new Vector3(0, rand * 90, 0), Space.World);
+    }
+
     void OnMouseDown () {
         if (Env.Instance.pathEntrySelection != Env.Paths.Empty) {
             entry = Env.Instance.pathEntrySelection;
@@ -31,5 +36,6 @@ public class Tile : MonoBehaviour
 
     void Start () {
         this.transform.Find("Hover").gameObject.SetActive(false);
+        RandomizeRotation();
     }
 }

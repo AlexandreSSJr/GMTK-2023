@@ -10,6 +10,7 @@ public class Path : MonoBehaviour
 
     private void ShowPath (Env.Paths path) {
         this.transform.Find(path.ToString()).gameObject.SetActive(true);
+        this.transform.Find("Center").gameObject.SetActive(true);
     }
 
     public void CheckPaths () {

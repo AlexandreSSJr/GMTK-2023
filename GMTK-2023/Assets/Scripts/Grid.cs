@@ -17,7 +17,7 @@ public class Grid : MonoBehaviour
     }
 
     private void PlaceGate () {
-        Gate.transform.Translate(new Vector3((Horizontal * Env.TileSize) - 1, 0, (Vertical - 1) * (Env.TileSize + Env.TileGridGap)));
+        Gate.transform.Translate(new Vector3((Horizontal * Env.TileSize) + 1, 0, (Vertical - 1) * (Env.TileSize + Env.TileGridGap)));
     }
 
     void Start()

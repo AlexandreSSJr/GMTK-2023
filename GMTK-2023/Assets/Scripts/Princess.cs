@@ -143,12 +143,16 @@ public class Princess : MonoBehaviour
         if (walking) {
             if (heading == Env.Paths.North) {
                 this.transform.Translate((new Vector3(Env.PrincessSpeed, 0f, 0f)));
+                this.transform.Find("Mesh").rotation = Quaternion.Euler(0, -90, 0);
             } else if (heading == Env.Paths.South) {
                 this.transform.Translate((new Vector3(-Env.PrincessSpeed, 0f, 0f)));
+                this.transform.Find("Mesh").rotation = Quaternion.Euler(0, 90, 0);
             } else if (heading == Env.Paths.West) {
                 this.transform.Translate((new Vector3(0f, 0f, Env.PrincessSpeed)));
+                this.transform.Find("Mesh").rotation = Quaternion.Euler(0, 180, 0);
             } else if (heading == Env.Paths.East) {
                 this.transform.Translate((new Vector3(0f, 0f, -Env.PrincessSpeed)));
+                this.transform.Find("Mesh").rotation = Quaternion.Euler(0, -180, 0);
             }
 
             if (enteringTile) {
