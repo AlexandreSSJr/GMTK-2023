@@ -21,7 +21,15 @@ public class Tile : MonoBehaviour
         }
     }
 
-    void OnMouseOver () {
-        
+    void OnMouseEnter () {
+        this.transform.Find("Hover").gameObject.SetActive(true);
+    }
+
+    void OnMouseExit () {
+        this.transform.Find("Hover").gameObject.SetActive(false);
+    }
+
+    void Start () {
+        this.transform.Find("Hover").gameObject.SetActive(false);
     }
 }

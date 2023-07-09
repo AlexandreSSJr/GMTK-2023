@@ -5,6 +5,7 @@ public class Princess : MonoBehaviour
     public Env.Paths heading = Env.Paths.North;
     public bool walking = true;
     private bool enteringTile = false;
+    private bool exitInverted = false;
     private float tileTraversed = 0f;
     private Env.Paths currentTileExitDirection = Env.Paths.Empty;
 
@@ -16,26 +17,42 @@ public class Princess : MonoBehaviour
             Env.Paths tileExit = other.GetComponent<Tile>().exit;
 
             if (heading == Env.Paths.North) {
-                if (tileEntry == Env.Paths.South || tileExit == Env.Paths.South) {
+                if (tileEntry == Env.Paths.South) {
                     this.transform.Translate((new Vector3(jumpDistance, 0f, 0f)));
+                    exitInverted = false;
+                } else if (tileExit == Env.Paths.South) {
+                    this.transform.Translate((new Vector3(jumpDistance, 0f, 0f)));
+                    exitInverted = true;
                 } else {
                     walking = false;
                 }
             } else if (heading == Env.Paths.South) {
-                if (tileEntry == Env.Paths.North || tileExit == Env.Paths.North) {
+                if (tileEntry == Env.Paths.North) {
                     this.transform.Translate((new Vector3(-jumpDistance, 0f, 0f)));
+                    exitInverted = false;
+                } else if (tileExit == Env.Paths.North) {
+                    this.transform.Translate((new Vector3(-jumpDistance, 0f, 0f)));
+                    exitInverted = true;
                 } else {
                     walking = false;
                 }
             } else if (heading == Env.Paths.West) {
-                if (tileEntry == Env.Paths.East || tileExit == Env.Paths.East) {
+                if (tileEntry == Env.Paths.East) {
                     this.transform.Translate((new Vector3(0f, 0f, jumpDistance)));
+                    exitInverted = false;
+                } else if (tileExit == Env.Paths.East) {
+                    this.transform.Translate((new Vector3(0f, 0f, jumpDistance)));
+                    exitInverted = true;
                 } else {
                     walking = false;
                 }
             } else if (heading == Env.Paths.East) {
-                if (tileEntry == Env.Paths.West || tileExit == Env.Paths.West) {
+                if (tileEntry == Env.Paths.West) {
                     this.transform.Translate((new Vector3(0f, 0f, -jumpDistance)));
+                    exitInverted = false;
+                } else if (tileExit == Env.Paths.West) {
+                    this.transform.Translate((new Vector3(0f, 0f, -jumpDistance)));
+                    exitInverted = true;
                 } else {
                     walking = false;
                 }
@@ -47,7 +64,19 @@ public class Princess : MonoBehaviour
 
     private void HeadToExit () {
         if (currentTileExitDirection != Env.Paths.Empty) {
-            heading = currentTileExitDirection;
+            if (exitInverted) {
+                if (currentTileExitDirection == Env.Paths.North) {
+                    currentTileExitDirection = Env.Paths.South;
+                } else if (currentTileExitDirection == Env.Paths.South) {
+                    currentTileExitDirection = Env.Paths.North;
+                } else if (currentTileExitDirection == Env.Paths.West) {
+                    currentTileExitDirection = Env.Paths.East;
+                } else if (currentTileExitDirection == Env.Paths.East) {
+                    currentTileExitDirection = Env.Paths.West;
+                }
+            } else {
+                heading = currentTileExitDirection;
+            }
         } else {
             walking = false;
         }
@@ -63,7 +92,7 @@ public class Princess : MonoBehaviour
             }
             if (other.tag == "Slot") {
                 // Implement Slot (Item/Enemy) interaction here
-                // Verificar qual objeto está dentro do Slot
+                // Verificar qual objeto estï¿½ dentro do Slot
                 Potion potion = other.GetComponentInChildren<Potion>();
                 Chest chest = other.GetComponentInChildren<Chest>();
                 Coins coins = other.GetComponentInChildren<Coins>();
@@ -76,19 +105,19 @@ public class Princess : MonoBehaviour
                         Env.Instance.PrincessHealth++;
                         
                     }
-                    print("Você coletou uma poção! Sua vida aumentou em +1.");
+                    print("Vocï¿½ coletou uma poï¿½ï¿½o! Sua vida aumentou em +1.");
                 }
 
                 if (chest != null)
                 {
-                    // Implementar interação com o objeto "Chest" aqui
+                    // Implementar interaï¿½ï¿½o com o objeto "Chest" aqui
                     
-                    print("Você encontrou um baú!");
+                    print("Vocï¿½ encontrou um baï¿½!");
                 }
 
                 if (coins != null)
                 {
-                    // Implementar interação com o objeto "Coins" aqui
+                    // Implementar interaï¿½ï¿½o com o objeto "Coins" aqui
                     Env.Instance.Coins++;
                     print("Coletou uma moedinha top");
                     
