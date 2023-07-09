@@ -63,7 +63,38 @@ public class Princess : MonoBehaviour
             }
             if (other.tag == "Slot") {
                 // Implement Slot (Item/Enemy) interaction here
-                print("You collected an item!");
+                // Verificar qual objeto está dentro do Slot
+                Potion potion = other.GetComponentInChildren<Potion>();
+                Chest chest = other.GetComponentInChildren<Chest>();
+                Coins coins = other.GetComponentInChildren<Coins>();
+
+                if (potion != null)
+                {
+                    // Aumentar a vida do personagem
+                    if (Env.Instance.PrincessHealth < 3 && Env.Instance.PrincessHealth > 0)
+                    {
+                        Env.Instance.PrincessHealth++;
+                        
+                    }
+                    print("Você coletou uma poção! Sua vida aumentou em +1.");
+                }
+
+                if (chest != null)
+                {
+                    // Implementar interação com o objeto "Chest" aqui
+                    
+                    print("Você encontrou um baú!");
+                }
+
+                if (coins != null)
+                {
+                    // Implementar interação com o objeto "Coins" aqui
+                    Env.Instance.Coins++;
+                    print("Coletou uma moedinha top");
+                    
+                }
+
+                //print("You collected an item!");
             }
             if (other.tag == "Gate") {
                 // Implement Next Phase or End Game here
