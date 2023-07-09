@@ -29,7 +29,7 @@ public class Env : MonoBehaviour
     public Env.Paths pathExitSelection = Env.Paths.Empty;
     public Env.Slots itemSelection = Env.Slots.Empty;
 
-    public const int CoinsAmount = 100;
+    public const int CoinsAmount = 50;
     public const int SlimeDamage = 1;
     public const int SwordDamageUpgrade = 2;
     public const int ShieldDefenseUpgrade = 1;
@@ -37,6 +37,7 @@ public class Env : MonoBehaviour
     public const int SwordBuildCost = 20;
     public const int ShieldBuildCost = 20;
     public const int PotionBuildCost = 10;
+    public const int PotionHealingAmount = 1;
 
     void Controls () {
         if (Input.GetKeyDown("1"))

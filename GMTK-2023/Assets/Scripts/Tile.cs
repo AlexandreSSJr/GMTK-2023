@@ -11,6 +11,11 @@ public class Tile : MonoBehaviour
         this.transform.Find("Mesh").gameObject.transform.Rotate(new Vector3(0, rand * 90, 0), Space.World);
     }
 
+    public void EmptySlot () {
+        slot = Env.Slots.Empty;
+        this.transform.Find("Slot").gameObject.GetComponent<Slot>().Reset();
+    }
+
     void OnMouseDown () {
         if (Env.Instance.pathEntrySelection != Env.Paths.Empty) {
             entry = Env.Instance.pathEntrySelection;

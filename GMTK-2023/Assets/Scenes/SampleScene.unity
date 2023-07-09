@@ -609,7 +609,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d233dfcb3b43bf446b7782cfb8e73d73, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3448d76ef471fd8479b13e8b16257487, type: 3}
   m_PlayOnAwake: 1
 <<<<<<< Updated upstream
   m_Volume: 0.1
@@ -766,6 +766,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Coins: 0
+  PrincessSpeed: 0.03
   PrincessLevel: 1
   PrincessMaxHealth: 3
   PrincessHealth: 3
