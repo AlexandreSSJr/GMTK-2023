@@ -62,19 +62,19 @@ public class Env : MonoBehaviour
             itemSelection = Env.Slots.Empty;
         } else if (Input.GetKeyDown("q"))
         {
-            itemSelection = Env.Slots.Potion;
+            itemSelection = Env.Slots.Sword;
             pathEntrySelection = Env.Paths.Empty;
             pathExitSelection = Env.Paths.Empty;
         } else if (Input.GetKeyDown("w"))
         {
             // itemSelection = Env.Slots.Sword;
-            itemSelection = Env.Slots.Chest;
+            itemSelection = Env.Slots.Shield;
             pathEntrySelection = Env.Paths.Empty;
             pathExitSelection = Env.Paths.Empty;
         } else if (Input.GetKeyDown("e"))
         {
             // itemSelection = Env.Slots.Shield;
-            itemSelection = Env.Slots.Coins;
+            itemSelection = Env.Slots.Potion;
             pathEntrySelection = Env.Paths.Empty;
             pathExitSelection = Env.Paths.Empty;
         }
