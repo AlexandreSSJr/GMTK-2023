@@ -118,30 +118,32 @@ public class Princess : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other) {
-            if (other.tag == "Tile") {
+        if (other && other.GetComponent<Tile>()) {
+            if (other.GetComponent<Tile>().entry != Env.Paths.Empty && other.GetComponent<Tile>().exit != Env.Paths.Empty) {
                 enteringTile = true;
                 currentTileExitDirection = other.GetComponent<Tile>().exit;
                 CheckTileEntry(other);
             }
-            if (other.tag == "Slot") {
-                // Implement Slot (Item/Enemy) interaction here
+            if (other.GetComponent<Tile>().slot != Env.Slots.Empty) {
                 Env.Slots currentSlot = other.GetComponent<Tile>().slot;
 
                 if (currentSlot == Env.Slots.Coins) {
                     Env.Instance.Coins += Env.CoinsAmount;
-                } else if (currentSlot == Env.Slots.Slime) {
-                    Env.Instance.PrincessHealth -= Env.SlimeDamage;
+                } else if (currentSlot == Env.Slots.Potion) {
+                    if (Env.Instance.PrincessHealth < Env.Instance.PrincessMaxHealth) {
+                        Env.Instance.PrincessHealth += Env.PotionHealingAmount;
+                    }
                 } else if (currentSlot == Env.Slots.Sword) {
                     Env.Instance.PrincessAttack -= Env.SwordDamageUpgrade;
                     Env.Instance.PrincessEquipLeft = Env.Equips.IronSword;
                 } else if (currentSlot == Env.Slots.Shield) {
                     Env.Instance.PrincessMaxHealth += Env.ShieldDefenseUpgrade;
                     Env.Instance.PrincessEquipLeft = Env.Equips.IronShield;
+                } else if (currentSlot == Env.Slots.Slime) {
+                    Env.Instance.PrincessHealth -= Env.SlimeDamage;
                 }
 
-                other.GetComponent<Tile>().slot = Env.Slots.Empty;
-                other.GetComponent<Tile>().GetComponent<Slot>().CheckSlot();
+                other.GetComponent<Tile>().EmptySlot();
             }
             if (other.tag == "Gate") {
                 // Implement Next Phase or End Game here

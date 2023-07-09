@@ -15,12 +15,13 @@ public class Grid : MonoBehaviour
         tile.GetComponent<Tile>().exit = Env.Paths.Empty;
         tile.GetComponent<Tile>().slot = Env.Slots.Empty;
         
-        // int rand = Random.Range(0, 5);
-        // if (rand == 0) {
-        //     tile.GetComponent<Tile>().slot = Env.Slots.Slime;
-        // } else if (rand == 1) {
-        //     tile.GetComponent<Tile>().slot = Env.Slots.Coins;
-        // }
+        int rand = Random.Range(0, 5);
+
+        if (rand == 0) {
+            tile.GetComponent<Tile>().slot = Env.Slots.Slime;
+        } else if (rand == 1) {
+            tile.GetComponent<Tile>().slot = Env.Slots.Coins;
+        }
     }
 
     private void PlaceGate () {
