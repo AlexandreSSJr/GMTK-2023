@@ -18,8 +18,9 @@ public class Env : MonoBehaviour
     public int[] LevelsTileVerticalConfig = {1, 3, 2, 2, 3, 4};
 
     public int Coins = 100;
+    public int CoinsAtStartOfLevel = 100;
 
-    public Vector3 PrincessStartingPosition = new Vector3(-30, 0, 0);
+    public Vector3 PrincessStartingPosition = new Vector3(-25, 0, 0);
     public float PrincessInitialSpeed = 0.03f;
     public float PrincessSpeedIncreaseAmount = 0.03f;
     public float PrincessSpeed = 0.03f;
@@ -39,6 +40,7 @@ public class Env : MonoBehaviour
     public Env.Paths pathEntrySelection = Env.Paths.Empty;
     public Env.Paths pathExitSelection = Env.Paths.Empty;
     public Env.Slots itemSelection = Env.Slots.Empty;
+    public int itemSelectionCost = 0;
 
     public const int CoinsAmount = 50;
     public const int SlimeDamage = 1;
@@ -57,55 +59,49 @@ public class Env : MonoBehaviour
             pathEntrySelection = Env.Paths.South;
             pathExitSelection = Env.Paths.North;
             itemSelection = Env.Slots.Empty;
-            Coins -= PathBuildCost;
         } else if (Input.GetKeyDown("2"))
         {
             pathEntrySelection = Env.Paths.East;
             pathExitSelection = Env.Paths.West;
             itemSelection = Env.Slots.Empty;
-            Coins -= PathBuildCost;
         } else if (Input.GetKeyDown("3"))
         {
             pathEntrySelection = Env.Paths.South;
             pathExitSelection = Env.Paths.West;
             itemSelection = Env.Slots.Empty;
-            Coins -= PathBuildCost;
         } else if (Input.GetKeyDown("4"))
         {
             pathEntrySelection = Env.Paths.South;
             pathExitSelection = Env.Paths.East;
             itemSelection = Env.Slots.Empty;
-            Coins -= PathBuildCost;
         } else if (Input.GetKeyDown("5"))
         {
             pathEntrySelection = Env.Paths.East;
             pathExitSelection = Env.Paths.North;
             itemSelection = Env.Slots.Empty;
-            Coins -= PathBuildCost;
         } else if (Input.GetKeyDown("6"))
         {
             pathEntrySelection = Env.Paths.West;
             pathExitSelection = Env.Paths.North;
             itemSelection = Env.Slots.Empty;
-            Coins -= PathBuildCost;
         } else if (Input.GetKeyDown("q"))
         {
             itemSelection = Env.Slots.Sword;
             pathEntrySelection = Env.Paths.Empty;
             pathExitSelection = Env.Paths.Empty;
-            Coins -= SwordBuildCost;
+            itemSelectionCost = SwordBuildCost;
         } else if (Input.GetKeyDown("w"))
         {
             itemSelection = Env.Slots.Shield;
             pathEntrySelection = Env.Paths.Empty;
             pathExitSelection = Env.Paths.Empty;
-            Coins -= ShieldBuildCost;
+            itemSelectionCost = ShieldBuildCost;
         } else if (Input.GetKeyDown("e"))
         {
             itemSelection = Env.Slots.Potion;
             pathEntrySelection = Env.Paths.Empty;
             pathExitSelection = Env.Paths.Empty;
-            Coins -= PotionBuildCost;
+            itemSelectionCost = PotionBuildCost;
         }
     }
 
@@ -123,10 +119,13 @@ public class Env : MonoBehaviour
     public void GoToNextLevel () {
         Level++;
         PrincessSpeed = PrincessInitialSpeed;
+        CoinsAtStartOfLevel = Coins;
         ResetLevel();
     }
 
     public void ResetLevel () {
+        // TODO: Also need to restart princess stats such as level, xp, etc
+        Coins = CoinsAtStartOfLevel;
         this.transform.Find("Grid").GetComponent<Grid>().BuildLevel();
         this.transform.Find("Princess").GetComponent<Princess>().SendPrincessToStart();
     }

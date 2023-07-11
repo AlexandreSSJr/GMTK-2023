@@ -6,6 +6,8 @@ public class Tile : MonoBehaviour
     public Env.Paths exit = Env.Paths.Empty;
     public Env.Slots slot = Env.Slots.Empty;
 
+    public bool locked = false;
+
     void RandomizeRotation () {
         int rand = Random.Range(0, 4);
         this.transform.Find("Mesh").gameObject.transform.Rotate(new Vector3(0, rand * 90, 0), Space.World);
@@ -17,16 +19,15 @@ public class Tile : MonoBehaviour
     }
 
     void OnMouseDown () {
-        if (Env.Instance.pathEntrySelection != Env.Paths.Empty) {
+        if (!locked && Env.Instance.pathEntrySelection != Env.Paths.Empty && Env.Instance.pathExitSelection != Env.Paths.Empty && Env.Instance.Coins >= Env.PathBuildCost) {
             entry = Env.Instance.pathEntrySelection;
-            this.transform.Find("Path").gameObject.GetComponent<Path>().CheckPaths();
-        }
-        if (Env.Instance.pathExitSelection != Env.Paths.Empty) {
             exit = Env.Instance.pathExitSelection;
+            Env.Instance.Coins -= Env.PathBuildCost;
             this.transform.Find("Path").gameObject.GetComponent<Path>().CheckPaths();
         }
-        if (slot == Env.Slots.Empty && Env.Instance.itemSelection != Env.Slots.Empty) {
+        if (!locked && slot == Env.Slots.Empty && Env.Instance.itemSelection != Env.Slots.Empty && Env.Instance.Coins >= Env.Instance.itemSelectionCost) {
             slot = Env.Instance.itemSelection;
+            Env.Instance.Coins -= Env.Instance.itemSelectionCost;
             this.transform.Find("Slot").gameObject.GetComponent<Slot>().CheckSlot();
         }
     }
