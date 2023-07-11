@@ -9,6 +9,8 @@ public class Princess : MonoBehaviour
     private float tileTraversed = 0f;
     private Env.Paths currentTileEntryDirection = Env.Paths.Empty;
     private Env.Paths currentTileExitDirection = Env.Paths.Empty;
+    private bool exitedTile = false;
+    private float traversedAfterExitingTile = 0f;
     private const float hopHeight = 1f;
     private const float hopSpeed = 0.08f;
     private bool goingUp = true;
@@ -147,6 +149,17 @@ public class Princess : MonoBehaviour
                 SendPrincessToStart();
                 Env.Instance.GoToNextLevel();
             }
+            exitedTile = false;
+            traversedAfterExitingTile = 0f;
+        }
+    }
+
+    void OnTriggerExit (Collider other)
+    {
+        if (other) {
+            if (other.tag == "Tile") {
+                exitedTile = true;
+            }
         }
     }
 
@@ -158,6 +171,8 @@ public class Princess : MonoBehaviour
 
     public void SendPrincessToStart () {
         this.transform.position = Env.Instance.PrincessStartingPosition;
+        walking = true;
+        heading = Env.Paths.North;
     }
 
     void Start () {
@@ -192,6 +207,12 @@ public class Princess : MonoBehaviour
                 enteringTile = false;
                 tileTraversed = 0f;
                 HeadToExit();
+            }
+        }
+        if (exitedTile) {
+            traversedAfterExitingTile += Env.Instance.PrincessSpeed;
+            if (traversedAfterExitingTile > Env.TileSize) {
+                Env.Instance.ResetLevel();
             }
         }
     }

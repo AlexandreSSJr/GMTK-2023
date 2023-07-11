@@ -126,6 +126,7 @@ public class Env : MonoBehaviour
     public void ResetLevel () {
         // TODO: Also need to restart princess stats such as level, xp, etc
         Coins = CoinsAtStartOfLevel;
+        PrincessSpeed = PrincessInitialSpeed;
         this.transform.Find("Grid").GetComponent<Grid>().BuildLevel();
         this.transform.Find("Princess").GetComponent<Princess>().SendPrincessToStart();
     }

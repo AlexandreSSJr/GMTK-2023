@@ -108,7 +108,6 @@ public class InGameUI : MonoBehaviour
 
     private void OnResetClicked()
     {
-        Env.Instance.PrincessSpeed = Env.Instance.PrincessInitialSpeed;
         Env.Instance.ResetLevel();
     }
 

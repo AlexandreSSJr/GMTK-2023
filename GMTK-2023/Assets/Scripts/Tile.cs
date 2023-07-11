@@ -19,7 +19,7 @@ public class Tile : MonoBehaviour
     }
 
     void OnMouseDown () {
-        if (!locked && Env.Instance.pathEntrySelection != Env.Paths.Empty && Env.Instance.pathExitSelection != Env.Paths.Empty && Env.Instance.Coins >= Env.PathBuildCost) {
+        if (!locked && Env.Instance.pathEntrySelection != Env.Paths.Empty && Env.Instance.pathExitSelection != Env.Paths.Empty && Env.Instance.Coins >= Env.PathBuildCost && (entry != Env.Instance.pathEntrySelection || exit != Env.Instance.pathExitSelection)) {
             entry = Env.Instance.pathEntrySelection;
             exit = Env.Instance.pathExitSelection;
             Env.Instance.Coins -= Env.PathBuildCost;
