@@ -13,6 +13,7 @@ public class Env : MonoBehaviour
     public enum Equips {Empty, WoodenSword, IronSword, GoldSword, WoodenShield, IronShield, GoldShield};
 
     public int Level = 0;
+    public int LastLevel = 5;
 
     public int[] LevelsTileHorizontalConfig = {3, 1, 2, 4, 3, 4};
     public int[] LevelsTileVerticalConfig = {1, 3, 2, 2, 3, 4};
@@ -117,7 +118,9 @@ public class Env : MonoBehaviour
     }
 
     public void GoToNextLevel () {
-        Level++;
+        if (Level < LastLevel) {
+            Level++;
+        }
         PrincessSpeed = PrincessInitialSpeed;
         CoinsAtStartOfLevel = Coins;
         ResetLevel();

@@ -211,7 +211,7 @@ public class Princess : MonoBehaviour
         }
         if (exitedTile) {
             traversedAfterExitingTile += Env.Instance.PrincessSpeed;
-            if (traversedAfterExitingTile > Env.TileSize) {
+            if (traversedAfterExitingTile > Env.TileSize + (Env.TileGridGap * 2)) {
                 Env.Instance.ResetLevel();
             }
         }

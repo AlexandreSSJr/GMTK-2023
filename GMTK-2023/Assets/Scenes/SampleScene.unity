@@ -769,7 +769,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 20
+  orthographic size: 23
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1195,6 +1195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Level: 0
+  LastLevel: 5
   LevelsTileHorizontalConfig: 030000000100000002000000040000000300000004000000
   LevelsTileVerticalConfig: 010000000300000002000000020000000300000004000000
   Coins: 100
