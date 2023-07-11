@@ -12,15 +12,26 @@ public class Env : MonoBehaviour
 
     public enum Equips {Empty, WoodenSword, IronSword, GoldSword, WoodenShield, IronShield, GoldShield};
 
+    public int Level = 0;
+
+    public int[] LevelsTileHorizontalConfig = {3, 1, 2, 4, 3, 4};
+    public int[] LevelsTileVerticalConfig = {1, 3, 2, 2, 3, 4};
+
     public int Coins = 100;
 
+    public Vector3 PrincessStartingPosition = new Vector3(-30, 0, 0);
+    public float PrincessInitialSpeed = 0.03f;
+    public float PrincessSpeedIncreaseAmount = 0.03f;
     public float PrincessSpeed = 0.03f;
     public int PrincessLevel = 1;
+    public int PrincessXP = 0;
     public int PrincessMaxHealth = 3;
     public int PrincessHealth = 3;
     public int PrincessAttack = 1;
+    public int PrincessDefense = 0;
     public Equips PrincessEquipLeft = Equips.Empty;
     public Equips PrincessEquipRight = Equips.Empty;
+    public int[] PrincessLevelUpXPCosts = {0, 10, 30, 50, 100, 200};
 
     public const int TileSize = 10;
     public const int TileGridGap = 1;
@@ -31,6 +42,7 @@ public class Env : MonoBehaviour
 
     public const int CoinsAmount = 50;
     public const int SlimeDamage = 1;
+    public const int SlimeXPGain = 10;
     public const int SwordDamageUpgrade = 2;
     public const int ShieldDefenseUpgrade = 1;
     public const int PathBuildCost = 5;
@@ -95,6 +107,28 @@ public class Env : MonoBehaviour
             pathExitSelection = Env.Paths.Empty;
             Coins -= PotionBuildCost;
         }
+    }
+
+    public void CheckPrincessLevel () {
+        if (PrincessXP >= PrincessLevelUpXPCosts[PrincessLevel]) {
+            PrincessXP -= PrincessLevelUpXPCosts[PrincessLevel];
+            PrincessLevel++;
+            PrincessAttack++;
+            PrincessDefense++;
+            PrincessMaxHealth++;
+            PrincessHealth++;
+        }
+    }
+
+    public void GoToNextLevel () {
+        Level++;
+        PrincessSpeed = PrincessInitialSpeed;
+        ResetLevel();
+    }
+
+    public void ResetLevel () {
+        this.transform.Find("Grid").GetComponent<Grid>().BuildLevel();
+        this.transform.Find("Princess").GetComponent<Princess>().SendPrincessToStart();
     }
 
     private void Awake()

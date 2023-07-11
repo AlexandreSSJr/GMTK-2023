@@ -7,6 +7,7 @@ public class Princess : MonoBehaviour
     private bool enteringTile = false;
     private bool exitInverted = false;
     private float tileTraversed = 0f;
+    private Env.Paths currentTileEntryDirection = Env.Paths.Empty;
     private Env.Paths currentTileExitDirection = Env.Paths.Empty;
     private const float hopHeight = 1f;
     private const float hopSpeed = 0.08f;
@@ -70,16 +71,8 @@ public class Princess : MonoBehaviour
 
     private void HeadToExit () {
         if (currentTileExitDirection != Env.Paths.Empty) {
-            if (exitInverted) {
-                if (currentTileExitDirection == Env.Paths.North) {
-                    currentTileExitDirection = Env.Paths.South;
-                } else if (currentTileExitDirection == Env.Paths.South) {
-                    currentTileExitDirection = Env.Paths.North;
-                } else if (currentTileExitDirection == Env.Paths.West) {
-                    currentTileExitDirection = Env.Paths.East;
-                } else if (currentTileExitDirection == Env.Paths.East) {
-                    currentTileExitDirection = Env.Paths.West;
-                }
+            if (exitInverted && currentTileEntryDirection != Env.Paths.Empty) {
+                heading = currentTileEntryDirection;
             } else {
                 heading = currentTileExitDirection;
             }
@@ -116,46 +109,59 @@ public class Princess : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter (Collider other)
     {
-        if (other && other.GetComponent<Tile>()) {
-            if (other.GetComponent<Tile>().entry != Env.Paths.Empty && other.GetComponent<Tile>().exit != Env.Paths.Empty) {
-                enteringTile = true;
-                currentTileExitDirection = other.GetComponent<Tile>().exit;
-                CheckTileEntry(other);
-            }
-            if (other.GetComponent<Tile>().slot != Env.Slots.Empty) {
-                Env.Slots currentSlot = other.GetComponent<Tile>().slot;
-
-                if (currentSlot == Env.Slots.Coins) {
-                    Env.Instance.Coins += Env.CoinsAmount;
-                } else if (currentSlot == Env.Slots.Potion) {
-                    if (Env.Instance.PrincessHealth < Env.Instance.PrincessMaxHealth) {
-                        Env.Instance.PrincessHealth += Env.PotionHealingAmount;
-                    }
-                } else if (currentSlot == Env.Slots.Sword) {
-                    Env.Instance.PrincessAttack -= Env.SwordDamageUpgrade;
-                    Env.Instance.PrincessEquipLeft = Env.Equips.IronSword;
-                } else if (currentSlot == Env.Slots.Shield) {
-                    Env.Instance.PrincessMaxHealth += Env.ShieldDefenseUpgrade;
-                    Env.Instance.PrincessEquipLeft = Env.Equips.IronShield;
-                } else if (currentSlot == Env.Slots.Slime) {
-                    Env.Instance.PrincessHealth -= Env.SlimeDamage;
+        if (other) {
+            if (other.GetComponent<Tile>()) {
+                if (other.GetComponent<Tile>().entry != Env.Paths.Empty && other.GetComponent<Tile>().exit != Env.Paths.Empty) {
+                    enteringTile = true;
+                    currentTileEntryDirection = other.GetComponent<Tile>().entry;
+                    currentTileExitDirection = other.GetComponent<Tile>().exit;
+                    CheckTileEntry(other);
                 }
+                if (other.GetComponent<Tile>().slot != Env.Slots.Empty) {
+                    Env.Slots currentSlot = other.GetComponent<Tile>().slot;
 
-                other.GetComponent<Tile>().EmptySlot();
+                    if (currentSlot == Env.Slots.Coins) {
+                        Env.Instance.Coins += Env.CoinsAmount;
+                    } else if (currentSlot == Env.Slots.Potion) {
+                        if (Env.Instance.PrincessHealth + Env.PotionHealingAmount <= Env.Instance.PrincessMaxHealth) {
+                            Env.Instance.PrincessHealth += Env.PotionHealingAmount;
+                        }
+                    } else if (currentSlot == Env.Slots.Sword) {
+                        Env.Instance.PrincessAttack -= Env.SwordDamageUpgrade;
+                        Env.Instance.PrincessEquipLeft = Env.Equips.IronSword;
+                    } else if (currentSlot == Env.Slots.Shield) {
+                        Env.Instance.PrincessMaxHealth += Env.ShieldDefenseUpgrade;
+                        Env.Instance.PrincessEquipLeft = Env.Equips.IronShield;
+                    } else if (currentSlot == Env.Slots.Slime) {
+                        Env.Instance.PrincessHealth -= Env.SlimeDamage;
+                        Env.Instance.PrincessXP += Env.SlimeXPGain;
+                        Env.Instance.CheckPrincessLevel();
+                    }
+
+                    other.GetComponent<Tile>().EmptySlot();
+                }
             }
             if (other.tag == "Gate") {
-                // Implement Next Phase or End Game here
-                print("You win :D");
+                SendPrincessToStart();
+                Env.Instance.GoToNextLevel();
             }
         }
     }
 
-    void OnTriggerStay(Collider other) {
+    void OnTriggerStay (Collider other) {
         if (!walking && other) {
             CheckTileEntry(other);
         }
+    }
+
+    public void SendPrincessToStart () {
+        this.transform.position = Env.Instance.PrincessStartingPosition;
+    }
+
+    void Start () {
+        SendPrincessToStart();
     }
 
     void FixedUpdate()

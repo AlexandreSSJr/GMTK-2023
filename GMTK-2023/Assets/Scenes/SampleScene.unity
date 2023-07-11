@@ -211,15 +211,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 175066546}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1668273862}
   - {fileID: 773643402}
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 1396614645}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &175066548
 BoxCollider:
@@ -461,15 +461,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 942091496}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -30, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1464732501}
   - {fileID: 1125585907}
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 1396614645}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &942091498
 BoxCollider:
@@ -725,7 +725,7 @@ Transform:
   m_Children:
   - {fileID: 48086539}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1125585907 stripped
 Transform:
@@ -761,14 +761,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faf0d56fc0d12fb409f71beeeaf2cde3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Coins: 0
+  Level: 0
+  LevelsTileHorizontalConfig: 030000000100000002000000040000000300000004000000
+  LevelsTileVerticalConfig: 010000000300000002000000020000000300000004000000
+  Coins: 100
+  PrincessStartingPosition: {x: -30, y: 0, z: 0}
+  PrincessInitialSpeed: 0.03
+  PrincessSpeedIncreaseAmount: 0.03
   PrincessSpeed: 0.03
   PrincessLevel: 1
+  PrincessXP: 0
   PrincessMaxHealth: 3
   PrincessHealth: 3
   PrincessAttack: 1
+  PrincessDefense: 0
   PrincessEquipLeft: 0
   PrincessEquipRight: 0
+  PrincessLevelUpXPCosts: 000000000a0000001e0000003200000064000000c8000000
   pathEntrySelection: 0
   pathExitSelection: 0
   itemSelection: 0
@@ -783,7 +792,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1602687839}
+  - {fileID: 942091497}
+  - {fileID: 175066547}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -894,13 +906,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1602687838}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 1396614645}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1602687840
 MonoBehaviour:
@@ -914,8 +926,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95eb7381cbe46e447a79d4ed8ce9a146, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Horizontal: 3
-  Vertical: 3
   Tile: {fileID: 2041586784}
   Gate: {fileID: 175066546}
 --- !u!1001 &1622656960
@@ -1181,7 +1191,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4058514319437725303, guid: 396b20ebe63daa241b80d2c9c33041a5, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4058514319437725303, guid: 396b20ebe63daa241b80d2c9c33041a5, type: 3}
       propertyPath: m_LocalPosition.x

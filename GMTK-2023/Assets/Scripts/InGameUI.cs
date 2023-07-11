@@ -43,76 +43,65 @@ public class InGameUI : MonoBehaviour
 
     private void OnPathSouthNorthClicked()
     {
-        Debug.Log("sn");
-            Env.Instance.pathEntrySelection = Env.Paths.South;
-            Env.Instance.pathExitSelection = Env.Paths.North;
-            Env.Instance.itemSelection = Env.Slots.Empty;
+        Env.Instance.pathEntrySelection = Env.Paths.South;
+        Env.Instance.pathExitSelection = Env.Paths.North;
+        Env.Instance.itemSelection = Env.Slots.Empty;
     }
     private void OnPathEastWestClicked()
     {
-        Debug.Log("ew");
-            Env.Instance.pathEntrySelection = Env.Paths.East;
-            Env.Instance.pathExitSelection = Env.Paths.West;
-            Env.Instance.itemSelection = Env.Slots.Empty;
+        Env.Instance.pathEntrySelection = Env.Paths.East;
+        Env.Instance.pathExitSelection = Env.Paths.West;
+        Env.Instance.itemSelection = Env.Slots.Empty;
     }
     private void OnPathSouthWestClicked()
     {
-        Debug.Log("sw");
-            Env.Instance.pathEntrySelection = Env.Paths.South;
-            Env.Instance.pathExitSelection = Env.Paths.West;
-            Env.Instance.itemSelection = Env.Slots.Empty;
+        Env.Instance.pathEntrySelection = Env.Paths.South;
+        Env.Instance.pathExitSelection = Env.Paths.West;
+        Env.Instance.itemSelection = Env.Slots.Empty;
     }
     private void OnPathSouthEastClicked()
     {
-        Debug.Log("se");
-            Env.Instance.pathEntrySelection = Env.Paths.South;
-            Env.Instance.pathExitSelection = Env.Paths.East;
-            Env.Instance.itemSelection = Env.Slots.Empty;
+        Env.Instance.pathEntrySelection = Env.Paths.South;
+        Env.Instance.pathExitSelection = Env.Paths.East;
+        Env.Instance.itemSelection = Env.Slots.Empty;
     }
     private void OnPathEastNorthClicked()
     {
-        Debug.Log("en");
-            Env.Instance.pathEntrySelection = Env.Paths.East;
-            Env.Instance.pathExitSelection = Env.Paths.North;
-            Env.Instance.itemSelection = Env.Slots.Empty;
+        Env.Instance.pathEntrySelection = Env.Paths.East;
+        Env.Instance.pathExitSelection = Env.Paths.North;
+        Env.Instance.itemSelection = Env.Slots.Empty;
     }
     private void OnPathWestNorthClicked()
     {
-        Debug.Log("wn");
-            Env.Instance.pathEntrySelection = Env.Paths.West;
-            Env.Instance.pathExitSelection = Env.Paths.North;
-            Env.Instance.itemSelection = Env.Slots.Empty;
+        Env.Instance.pathEntrySelection = Env.Paths.West;
+        Env.Instance.pathExitSelection = Env.Paths.North;
+        Env.Instance.itemSelection = Env.Slots.Empty;
     }
     private void OnSwordClicked()
     {
-        Debug.Log("sword");
-            Env.Instance.pathEntrySelection = Env.Paths.Empty;
-            Env.Instance.pathExitSelection = Env.Paths.Empty;
-            Env.Instance.itemSelection = Env.Slots.Sword;
+        Env.Instance.pathEntrySelection = Env.Paths.Empty;
+        Env.Instance.pathExitSelection = Env.Paths.Empty;
+        Env.Instance.itemSelection = Env.Slots.Sword;
     }
     private void OnShieldClicked()
     {
-        Debug.Log("shield");
-            Env.Instance.pathEntrySelection = Env.Paths.Empty;
-            Env.Instance.pathExitSelection = Env.Paths.Empty;
-            Env.Instance.itemSelection = Env.Slots.Shield;
+        Env.Instance.pathEntrySelection = Env.Paths.Empty;
+        Env.Instance.pathExitSelection = Env.Paths.Empty;
+        Env.Instance.itemSelection = Env.Slots.Shield;
     }
     private void OnPotionClicked()
     {
-        Debug.Log("potion");
-            Env.Instance.pathEntrySelection = Env.Paths.Empty;
-            Env.Instance.pathExitSelection = Env.Paths.Empty;
-            Env.Instance.itemSelection = Env.Slots.Potion;
+        Env.Instance.pathEntrySelection = Env.Paths.Empty;
+        Env.Instance.pathExitSelection = Env.Paths.Empty;
+        Env.Instance.itemSelection = Env.Slots.Potion;
     }
     private void OnResetClicked()
     {
-        Debug.Log("reset");
-        Env.Instance.PrincessSpeed = 0.03f;
-        Application.LoadLevel(Application.loadedLevel);
+        Env.Instance.PrincessSpeed = Env.Instance.PrincessInitialSpeed;
+        Env.Instance.ResetLevel();
     }
     private void OnFastforwardClicked()
     {
-        Debug.Log("ff");
-        Env.Instance.PrincessSpeed += 0.02f;
+        Env.Instance.PrincessSpeed += Env.Instance.PrincessSpeedIncreaseAmount;
     }
 }
