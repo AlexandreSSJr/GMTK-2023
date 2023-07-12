@@ -131,15 +131,19 @@ public class Princess : MonoBehaviour
                             Env.Instance.PrincessHealth += Env.PotionHealingAmount;
                         }
                     } else if (currentSlot == Env.Slots.Sword) {
-                        Env.Instance.PrincessAttack -= Env.SwordDamageUpgrade;
+                        Env.Instance.PrincessAttack += Env.SwordDamageUpgrade;
                         Env.Instance.PrincessEquipLeft = Env.Equips.IronSword;
                     } else if (currentSlot == Env.Slots.Shield) {
-                        Env.Instance.PrincessMaxHealth += Env.ShieldDefenseUpgrade;
+                        Env.Instance.PrincessDefense += Env.ShieldDefenseUpgrade;
                         Env.Instance.PrincessEquipLeft = Env.Equips.IronShield;
                     } else if (currentSlot == Env.Slots.Slime) {
-                        Env.Instance.PrincessHealth -= Env.SlimeDamage;
-                        Env.Instance.PrincessXP += Env.SlimeXPGain;
-                        Env.Instance.CheckPrincessLevel();
+                        if (Env.Instance.PrincessHealth - Env.SlimeDamage <= 0) {
+                            Env.Instance.ResetLevel();
+                        } else {
+                            Env.Instance.PrincessHealth -= Env.SlimeDamage;
+                            Env.Instance.PrincessXP += Env.SlimeXPGain;
+                            Env.Instance.CheckPrincessLevel();
+                        }
                     }
 
                     other.GetComponent<Tile>().EmptySlot();

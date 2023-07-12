@@ -3,9 +3,12 @@ using UnityEngine.UIElements;
 
 public class InGameUI : MonoBehaviour
 {
-    public Env.Paths entry = Env.Paths.Empty;
-    public Env.Paths exit = Env.Paths.Empty;
-    public Env.Slots slot = Env.Slots.Empty;
+    Label labelCoins;
+    Label labelPrincessTitle;
+    Label labelPrincessLevel;
+    Label labelPrincessHealth;
+    Label labelPrincessAttack;
+    Label labelPrincessDefense;
 
     public int LastPrincessHealth;
 
@@ -27,6 +30,13 @@ public class InGameUI : MonoBehaviour
 
         Button buttonReset = root.Q<Button>("ResetButton");
         Button buttonFastforward = root.Q<Button>("FastforwardButton");
+
+        labelCoins = root.Q<Label>("GoldValue");
+        labelPrincessTitle = root.Q<Label>("PrincessTitle");
+        labelPrincessLevel = root.Q<Label>("PrincessLevel");
+        labelPrincessHealth = root.Q<Label>("PrincessHealth");
+        labelPrincessAttack = root.Q<Label>("PrincessAttack");
+        labelPrincessDefense = root.Q<Label>("PrincessDefense");
 
         buttonPathSouthNorth.clicked += () => OnPathSouthNorthClicked();
         buttonPathEastWest.clicked += () => OnPathEastWestClicked();
@@ -118,14 +128,12 @@ public class InGameUI : MonoBehaviour
 
     private void UpdateUIData()
     {
-        // Getting the Root Element from the UIDocument
-        VisualElement root = GetComponent<UIDocument>().rootVisualElement;
-
-        Label labelCoins = root.Q<Label>("GoldValue");
-        Label labelAttackStatus = root.Q<Label>("AttackStats");
-
-        labelCoins.text = "" + Env.Instance.Coins;
-        labelAttackStatus.text = "" + Env.Instance.PrincessAttack;
+        labelCoins.text = Env.Instance.Coins.ToString();
+        labelPrincessTitle.text = "Princess ( Lv. " + Env.Instance.PrincessLevel.ToString() + " )";
+        labelPrincessLevel.text = Env.Instance.PrincessXP.ToString() + " xp";
+        labelPrincessHealth.text = Env.Instance.PrincessHealth.ToString() + " / " + Env.Instance.PrincessMaxHealth.ToString();
+        labelPrincessAttack.text = Env.Instance.PrincessAttack.ToString();
+        labelPrincessDefense.text = Env.Instance.PrincessDefense.ToString();
 
         if (Env.Instance.PrincessHealth != LastPrincessHealth) { }
     }

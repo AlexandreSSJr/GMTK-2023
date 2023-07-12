@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Env : MonoBehaviour
 {
@@ -12,7 +13,10 @@ public class Env : MonoBehaviour
 
     public enum Equips {Empty, WoodenSword, IronSword, GoldSword, WoodenShield, IronShield, GoldShield};
 
+    public float Timer = 0;
+    public bool CountTimer = true;
     public int Level = 0;
+    public int FirstLevel = 0;
     public int LastLevel = 5;
 
     public int[] LevelsTileHorizontalConfig = {3, 1, 2, 4, 3, 4};
@@ -22,9 +26,9 @@ public class Env : MonoBehaviour
     public int CoinsAtStartOfLevel = 100;
 
     public Vector3 PrincessStartingPosition = new Vector3(-25, 0, 0);
-    public float PrincessInitialSpeed = 0.03f;
-    public float PrincessSpeedIncreaseAmount = 0.03f;
-    public float PrincessSpeed = 0.03f;
+    public float PrincessInitialSpeed = 0.05f;
+    public float PrincessSpeedIncreaseAmount = 0.05f;
+    public float PrincessSpeed = 0.05f;
     public int PrincessLevel = 1;
     public int PrincessXP = 0;
     public int PrincessMaxHealth = 3;
@@ -106,6 +110,10 @@ public class Env : MonoBehaviour
         }
     }
 
+    void UpdateTimer () {
+        Timer += Time.deltaTime;
+    }
+
     public void CheckPrincessLevel () {
         if (PrincessXP >= PrincessLevelUpXPCosts[PrincessLevel]) {
             PrincessXP -= PrincessLevelUpXPCosts[PrincessLevel];
@@ -121,6 +129,11 @@ public class Env : MonoBehaviour
         if (Level < LastLevel) {
             Level++;
         }
+        else {
+            CountTimer = false;
+            SceneManager.LoadScene("End");
+        }
+
         PrincessSpeed = PrincessInitialSpeed;
         CoinsAtStartOfLevel = Coins;
         ResetLevel();
@@ -149,5 +162,8 @@ public class Env : MonoBehaviour
 
     void Update () {
         Controls();
+        if (CountTimer) {
+            UpdateTimer();
+        }
     }
 }

@@ -1,33 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MenuManager : MonoBehaviour
 {
-    [SerializeField] private string gameLevelName;
+    private string gameScene = "Game";
     [SerializeField] private GameObject initialMenuPanel;
-    [SerializeField] private GameObject optionsPanel;
-    public void Play()
+    [SerializeField] private TMP_Text TimerText;
+    [SerializeField] private TMP_Text LevelText;
+    [SerializeField] private TMP_Text GoldText;
+
+    public void Play ()
     {
-        SceneManager.LoadScene(gameLevelName);
+        Env.Instance.Level = Env.Instance.FirstLevel;
+        SceneManager.LoadScene(gameScene);
     }
 
-    public void OpenOptions()
+    public void Exit ()
     {
-        initialMenuPanel.SetActive(false);
-        optionsPanel.SetActive(true);
-    }
-
-    public void CloseOptions()
-    {
-        initialMenuPanel.SetActive(true);
-        optionsPanel.SetActive(false);
-    }
-
-    public void Exit()
-    {
-        Debug.Log("Saiu do jogo");
         Application.Quit();
+    }
+
+    void Start () {
+        if (TimerText && Env.Instance) {
+            TimerText.text = Mathf.FloorToInt(Env.Instance.Timer / 60).ToString() + "m " + Mathf.FloorToInt(Env.Instance.Timer % 60).ToString() + "s";
+            LevelText.text = Env.Instance.PrincessLevel.ToString();
+            GoldText.text = Env.Instance.Coins.ToString();
+        }
     }
 }
