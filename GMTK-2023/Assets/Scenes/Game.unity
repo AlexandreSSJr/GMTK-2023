@@ -184,9 +184,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40e139646e384224f8d342d214cec65a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entry: 0
-  exit: 0
-  slot: 0
   LastPrincessHealth: 0
 --- !u!1 &175066546
 GameObject:
@@ -377,8 +374,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_Father: {fileID: 1396614645}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &729223558
 GameObject:
@@ -797,8 +794,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_Father: {fileID: 1396614645}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 30, y: 45, z: 0}
 --- !u!82 &963194229
 AudioSource:
@@ -926,7 +923,7 @@ Transform:
   m_Children:
   - {fileID: 48086539}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1107410125
 GameObject:
@@ -1194,16 +1191,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faf0d56fc0d12fb409f71beeeaf2cde3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Timer: 0
+  CountTimer: 1
   Level: 0
+  FirstLevel: 0
   LastLevel: 5
   LevelsTileHorizontalConfig: 030000000100000002000000040000000300000004000000
   LevelsTileVerticalConfig: 010000000300000002000000020000000300000004000000
   Coins: 100
   CoinsAtStartOfLevel: 100
   PrincessStartingPosition: {x: -25, y: 0, z: 0}
-  PrincessInitialSpeed: 0.03
-  PrincessSpeedIncreaseAmount: 0.03
-  PrincessSpeed: 0.03
+  PrincessInitialSpeed: 0.05
+  PrincessSpeedIncreaseAmount: 0.2
+  PrincessSpeed: 0.05
   PrincessLevel: 1
   PrincessXP: 0
   PrincessMaxHealth: 3
@@ -1233,6 +1233,8 @@ Transform:
   - {fileID: 942091497}
   - {fileID: 175066547}
   - {fileID: 2069960474}
+  - {fileID: 963194228}
+  - {fileID: 705507995}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1365,6 +1367,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tile: {fileID: 2041586784}
   Gate: {fileID: 175066546}
+  GrassEasy: {fileID: 2100000, guid: be7627b167338dc498e4498b3e562227, type: 2}
+  GrassMedium: {fileID: 2100000, guid: 8fff006c79336e8449d91599139d8aef, type: 2}
+  GrassHard: {fileID: 2100000, guid: 083609824f7045e4e8487099a6e4c266, type: 2}
+  GroundHard: {fileID: 2100000, guid: 1d68e645f0baccb419beccf218958ee0, type: 2}
 --- !u!1001 &1622656960
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1810,6 +1816,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2649818198850986876, guid: 396b20ebe63daa241b80d2c9c33041a5, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4058514318536742693, guid: 396b20ebe63daa241b80d2c9c33041a5, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1828,7 +1838,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4058514319437725303, guid: 396b20ebe63daa241b80d2c9c33041a5, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4058514319437725303, guid: 396b20ebe63daa241b80d2c9c33041a5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1884,6 +1894,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4058514320198023347, guid: 396b20ebe63daa241b80d2c9c33041a5, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8018420069346995116, guid: 396b20ebe63daa241b80d2c9c33041a5, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8241278077528539195, guid: 396b20ebe63daa241b80d2c9c33041a5, type: 3}
+      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

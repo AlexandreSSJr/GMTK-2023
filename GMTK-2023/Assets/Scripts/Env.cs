@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class Env : MonoBehaviour
@@ -27,7 +28,7 @@ public class Env : MonoBehaviour
 
     public Vector3 PrincessStartingPosition = new Vector3(-25, 0, 0);
     public float PrincessInitialSpeed = 0.05f;
-    public float PrincessSpeedIncreaseAmount = 0.05f;
+    public float PrincessSpeedIncreaseAmount = 0.2f;
     public float PrincessSpeed = 0.05f;
     public int PrincessLevel = 1;
     public int PrincessXP = 0;
@@ -114,12 +115,15 @@ public class Env : MonoBehaviour
         Timer += Time.deltaTime;
     }
 
+    public void SetInitialTilesMaterials (Material[] materials) {
+        this.transform.Find("Starting Tiles").Find("Tile 1").Find("Mesh").GetComponent<MeshRenderer>().materials = materials;
+        this.transform.Find("Starting Tiles").Find("Tile 2").Find("Mesh").GetComponent<MeshRenderer>().materials = materials;
+    }
+
     public void CheckPrincessLevel () {
         if (PrincessXP >= PrincessLevelUpXPCosts[PrincessLevel]) {
             PrincessXP -= PrincessLevelUpXPCosts[PrincessLevel];
             PrincessLevel++;
-            PrincessAttack++;
-            PrincessDefense++;
             PrincessMaxHealth++;
             PrincessHealth++;
         }

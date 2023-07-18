@@ -8,7 +8,7 @@ public class Tile : MonoBehaviour
 
     public bool locked = false;
 
-    void RandomizeRotation () {
+    private void RandomizeRotation () {
         int rand = Random.Range(0, 4);
         this.transform.Find("Mesh").gameObject.transform.Rotate(new Vector3(0, rand * 90, 0), Space.World);
     }
@@ -16,6 +16,18 @@ public class Tile : MonoBehaviour
     public void EmptySlot () {
         slot = Env.Slots.Empty;
         this.transform.Find("Slot").gameObject.GetComponent<Slot>().Reset();
+    }
+
+    public void Explode () {
+        this.transform.Find("Explosion").GetComponent<ParticleSystem>().Play();
+    }
+
+    public void CoinPickup () {
+        this.transform.Find("CoinPickup").GetComponent<ParticleSystem>().Play();
+    }
+    
+    public void StatusPickup () {
+        this.transform.Find("StatusPickup").GetComponent<ParticleSystem>().Play();
     }
 
     void OnMouseDown () {

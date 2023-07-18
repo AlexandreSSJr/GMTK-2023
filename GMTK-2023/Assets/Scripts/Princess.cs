@@ -126,23 +126,28 @@ public class Princess : MonoBehaviour
 
                     if (currentSlot == Env.Slots.Coins) {
                         Env.Instance.Coins += Env.CoinsAmount;
+                        other.GetComponent<Tile>().CoinPickup();
                     } else if (currentSlot == Env.Slots.Potion) {
+                        other.GetComponent<Tile>().StatusPickup();
                         if (Env.Instance.PrincessHealth + Env.PotionHealingAmount <= Env.Instance.PrincessMaxHealth) {
                             Env.Instance.PrincessHealth += Env.PotionHealingAmount;
                         }
                     } else if (currentSlot == Env.Slots.Sword) {
+                        other.GetComponent<Tile>().StatusPickup();
                         Env.Instance.PrincessAttack += Env.SwordDamageUpgrade;
                         Env.Instance.PrincessEquipLeft = Env.Equips.IronSword;
                     } else if (currentSlot == Env.Slots.Shield) {
+                        other.GetComponent<Tile>().StatusPickup();
                         Env.Instance.PrincessDefense += Env.ShieldDefenseUpgrade;
                         Env.Instance.PrincessEquipLeft = Env.Equips.IronShield;
                     } else if (currentSlot == Env.Slots.Slime) {
-                        if (Env.Instance.PrincessHealth - Env.SlimeDamage <= 0) {
+                        if (Env.Instance.PrincessHealth - (Env.SlimeDamage - Env.Instance.PrincessDefense) <= 0) {
                             Env.Instance.ResetLevel();
                         } else {
-                            Env.Instance.PrincessHealth -= Env.SlimeDamage;
+                            Env.Instance.PrincessHealth -= (Env.SlimeDamage - Env.Instance.PrincessDefense);
                             Env.Instance.PrincessXP += Env.SlimeXPGain;
                             Env.Instance.CheckPrincessLevel();
+                            other.GetComponent<Tile>().Explode();
                         }
                     }
 
