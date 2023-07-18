@@ -8,7 +8,7 @@ public class Env : MonoBehaviour
 
     public enum Paths {Empty, North, South, West, East};
 
-    public enum Slots {Empty, Potion, Sword, Shield, Coins, Chest, Slime, Scorpion, Wolf, Guard, Orc};
+    public enum Slots {Empty, Potion, Sword, Shield, Coins, Chest, Slime, Ghost, Troll, Knight};
 
     public enum Stats {Coins, PrincessLevel, PrincessHealth, PrincessAttack, PrincessEquipLeft, PrincessEquipRight};
 
@@ -18,10 +18,10 @@ public class Env : MonoBehaviour
     public bool CountTimer = true;
     public int Level = 0;
     public int FirstLevel = 0;
-    public int LastLevel = 5;
+    public int LastLevel = 7;
 
-    public int[] LevelsTileHorizontalConfig = {3, 1, 2, 4, 3, 4};
-    public int[] LevelsTileVerticalConfig = {1, 3, 2, 2, 3, 4};
+    public int[] LevelsTileHorizontalConfig = {3, 1, 2, 3, 4, 3, 4, 4};
+    public int[] LevelsTileVerticalConfig = {1, 3, 2, 2, 2, 3, 3, 4};
 
     public int Coins = 100;
     public int CoinsAtStartOfLevel = 100;
@@ -49,14 +49,22 @@ public class Env : MonoBehaviour
     public int itemSelectionCost = 0;
 
     public const int CoinsAmount = 50;
-    public const int SlimeDamage = 1;
+    public const int SlimeAttack = 1;
     public const int SlimeXPGain = 10;
+    public const int GhostHealth = 3;
+    public const int GhostAttack = 2;
+    public const int GhostDefense = 1;
+    public const int GhostXPGain = 20;
+    public const int TrollHealth = 6;
+    public const int TrollAttack = 4;
+    public const int TrollDefense = 2;
+    public const int TrollXPGain = 40;
     public const int SwordDamageUpgrade = 2;
     public const int ShieldDefenseUpgrade = 1;
     public const int PathBuildCost = 5;
-    public const int SwordBuildCost = 20;
-    public const int ShieldBuildCost = 20;
-    public const int PotionBuildCost = 10;
+    public const int SwordBuildCost = 30;
+    public const int ShieldBuildCost = 30;
+    public const int PotionBuildCost = 20;
     public const int PotionHealingAmount = 1;
 
     void Controls () {

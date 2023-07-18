@@ -141,10 +141,10 @@ public class Princess : MonoBehaviour
                         Env.Instance.PrincessDefense += Env.ShieldDefenseUpgrade;
                         Env.Instance.PrincessEquipLeft = Env.Equips.IronShield;
                     } else if (currentSlot == Env.Slots.Slime) {
-                        if (Env.Instance.PrincessHealth - (Env.SlimeDamage - Env.Instance.PrincessDefense) <= 0) {
+                        if (Env.Instance.PrincessHealth - (Env.SlimeAttack - Env.Instance.PrincessDefense) <= 0) {
                             Env.Instance.ResetLevel();
                         } else {
-                            Env.Instance.PrincessHealth -= (Env.SlimeDamage - Env.Instance.PrincessDefense);
+                            Env.Instance.PrincessHealth -= (Env.SlimeAttack - Env.Instance.PrincessDefense);
                             Env.Instance.PrincessXP += Env.SlimeXPGain;
                             Env.Instance.CheckPrincessLevel();
                             other.GetComponent<Tile>().Explode();
