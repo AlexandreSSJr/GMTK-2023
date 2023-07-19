@@ -23,22 +23,28 @@ public class Env : MonoBehaviour
     public int[] LevelsTileHorizontalConfig = {3, 1, 2, 3, 4, 3, 4, 4};
     public int[] LevelsTileVerticalConfig = {1, 3, 2, 2, 2, 3, 3, 4};
 
-    public int Coins = 100;
-    public int CoinsAtStartOfLevel = 100;
+    public int Coins = 50;
+    public int CoinsAtStartOfLevel = 50;
 
     public Vector3 PrincessStartingPosition = new Vector3(-25, 0, 0);
     public float PrincessInitialSpeed = 0.05f;
     public float PrincessSpeedIncreaseAmount = 0.2f;
     public float PrincessSpeed = 0.05f;
     public int PrincessLevel = 1;
+    public int PrincessLevelAtStartOfLevel = 1;
     public int PrincessXP = 0;
+    public int PrincessXPAtStartOfLevel = 0;
     public int PrincessMaxHealth = 3;
+    public int PrincessMaxHealthAtStartOfLevel = 3;
     public int PrincessHealth = 3;
+    public int PrincessHealthAtStartOfLevel = 3;
     public int PrincessAttack = 1;
+    public int PrincessAttackAtStartOfLevel = 1;
     public int PrincessDefense = 0;
+    public int PrincessDefenseAtStartOfLevel = 0;
     public Equips PrincessEquipLeft = Equips.Empty;
     public Equips PrincessEquipRight = Equips.Empty;
-    public int[] PrincessLevelUpXPCosts = {0, 10, 30, 50, 100, 200};
+    public int[] PrincessLevelUpXPCosts = {0, 10, 30, 50, 100, 200, 500};
 
     public const int TileSize = 10;
     public const int TileGridGap = 1;
@@ -49,17 +55,7 @@ public class Env : MonoBehaviour
     public int itemSelectionCost = 0;
 
     public const int CoinsAmount = 50;
-    public const int SlimeAttack = 1;
-    public const int SlimeXPGain = 10;
-    public const int GhostHealth = 3;
-    public const int GhostAttack = 2;
-    public const int GhostDefense = 1;
-    public const int GhostXPGain = 20;
-    public const int TrollHealth = 6;
-    public const int TrollAttack = 4;
-    public const int TrollDefense = 2;
-    public const int TrollXPGain = 40;
-    public const int SwordDamageUpgrade = 2;
+    public const int SwordDamageUpgrade = 1;
     public const int ShieldDefenseUpgrade = 1;
     public const int PathBuildCost = 5;
     public const int SwordBuildCost = 30;
@@ -148,13 +144,25 @@ public class Env : MonoBehaviour
 
         PrincessSpeed = PrincessInitialSpeed;
         CoinsAtStartOfLevel = Coins;
+        PrincessLevelAtStartOfLevel = PrincessLevel;
+        PrincessXPAtStartOfLevel = PrincessXP;
+        PrincessMaxHealthAtStartOfLevel = PrincessMaxHealth;
+        PrincessHealthAtStartOfLevel = PrincessHealth;
+        PrincessAttackAtStartOfLevel = PrincessAttack;
+        PrincessDefenseAtStartOfLevel = PrincessDefense;
         ResetLevel();
     }
 
     public void ResetLevel () {
-        // TODO: Also need to restart princess stats such as level, xp, etc
         Coins = CoinsAtStartOfLevel;
         PrincessSpeed = PrincessInitialSpeed;
+        PrincessLevel = PrincessLevelAtStartOfLevel;
+        PrincessXP = PrincessXPAtStartOfLevel;
+        PrincessMaxHealth = PrincessMaxHealthAtStartOfLevel;
+        PrincessHealth = PrincessHealthAtStartOfLevel;
+        PrincessAttack = PrincessAttackAtStartOfLevel;
+        PrincessDefense = PrincessDefenseAtStartOfLevel;
+
         this.transform.Find("Grid").GetComponent<Grid>().BuildLevel();
         this.transform.Find("Princess").GetComponent<Princess>().SendPrincessToStart();
     }

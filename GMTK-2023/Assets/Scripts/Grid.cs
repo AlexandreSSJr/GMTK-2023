@@ -37,8 +37,7 @@ public class Grid : MonoBehaviour
 
         if (Env.Instance.Level == 0) {
             if (i == 1 && j == 0) {
-                // tile.GetComponent<Tile>().slot = Env.Slots.Coins;
-                tile.GetComponent<Tile>().slot = Env.Slots.Ghost;
+                tile.GetComponent<Tile>().slot = Env.Slots.Coins;
             }
         } else if (Env.Instance.Level == 1) {
             if (i == 0 && j == 1) {
@@ -55,14 +54,38 @@ public class Grid : MonoBehaviour
                 tile.GetComponent<Tile>().slot = Env.Slots.Slime;
             } else if (i == 1 && j == 1) {
                 tile.GetComponent<Tile>().slot = Env.Slots.Coins;
-            } else if (i == 0 && j == 2) {
-                tile.GetComponent<Tile>().slot = Env.Slots.Slime;
+            } else if (i == 2 && j == 0) {
+                tile.GetComponent<Tile>().slot = Env.Slots.Ghost;
+            }
+        } else if (Env.Instance.Level == 4) {
+            if (i == 0 && j == 1) {
+                tile.GetComponent<Tile>().slot = Env.Slots.Ghost;
+            } else if (i == 1 && j == 0) {
+                tile.GetComponent<Tile>().slot = Env.Slots.Coins;
+            } else if (i == 2 && j == 1) {
+                tile.GetComponent<Tile>().slot = Env.Slots.Ghost;
+            } else if (i == 3 && j == 0) {
+                tile.GetComponent<Tile>().slot = Env.Slots.Coins;
+            }
+        } else if (Env.Instance.Level == 5) {
+            if (i == 1 && j == 0) {
+                tile.GetComponent<Tile>().slot = Env.Slots.Ghost;
+            } else if (i == 2 && j == 1) {
+                tile.GetComponent<Tile>().slot = Env.Slots.Ghost;
+            } else if (i == 1 && j == 1) {
+                tile.GetComponent<Tile>().slot = Env.Slots.Coins;
+            } else if (i == 1 && j == 2) {
+                tile.GetComponent<Tile>().slot = Env.Slots.Ghost;
+            } else if (i == 0 && j == 1) {
+                tile.GetComponent<Tile>().slot = Env.Slots.Ghost;
             }
         } else {
             if (rand == 0) {
-                tile.GetComponent<Tile>().slot = Env.Slots.Slime;
+                tile.GetComponent<Tile>().slot = Env.Slots.Ghost;
             } else if (rand == 1) {
                 tile.GetComponent<Tile>().slot = Env.Slots.Coins;
+            } else if (rand == 2 && Env.Instance.Level > 6) {
+                tile.GetComponent<Tile>().slot = Env.Slots.Troll;
             }
         }
     }

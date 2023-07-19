@@ -17,10 +17,13 @@ public class Princess : MonoBehaviour
     private const int turnMaxAngle = 30;
     private const int turnSpeed = 1;
     private bool turningRight = true;
+    private bool beingKickedToStart = false;
+    private float kickSpeed = 0.5f;
+    private float kickUpSpeed = 0.2f;
+    private float beingKickedXMidPoint = 0f;
 
     private void CheckTileEntry (Collider other) {
-        if (other && other.GetComponent<Tile>() && other.GetComponent<Tile>().entry != Env.Paths.Empty) {
-
+        if (other && other.GetComponent<Tile>() && other.GetComponent<Tile>().entry != Env.Paths.Empty && !beingKickedToStart) {
             float jumpDistance = Env.TileGridGap + 1;
             Env.Paths tileEntry = other.GetComponent<Tile>().entry;
             Env.Paths tileExit = other.GetComponent<Tile>().exit;
@@ -32,6 +35,8 @@ public class Princess : MonoBehaviour
                 } else if (tileExit == Env.Paths.South) {
                     this.transform.Translate((new Vector3(jumpDistance, 0f, 0f)));
                     exitInverted = true;
+                } else if (tileEntry == Env.Paths.North && tileExit == Env.Paths.North) {
+                    this.transform.Translate((new Vector3(jumpDistance, 0f, 0f)));
                 } else {
                     walking = false;
                 }
@@ -127,31 +132,72 @@ public class Princess : MonoBehaviour
                     if (currentSlot == Env.Slots.Coins) {
                         Env.Instance.Coins += Env.CoinsAmount;
                         other.GetComponent<Tile>().CoinPickup();
+                        other.GetComponent<Tile>().EmptySlot();
                     } else if (currentSlot == Env.Slots.Potion) {
                         other.GetComponent<Tile>().StatusPickup();
                         if (Env.Instance.PrincessHealth + Env.PotionHealingAmount <= Env.Instance.PrincessMaxHealth) {
                             Env.Instance.PrincessHealth += Env.PotionHealingAmount;
+                            other.GetComponent<Tile>().EmptySlot();
                         }
                     } else if (currentSlot == Env.Slots.Sword) {
                         other.GetComponent<Tile>().StatusPickup();
                         Env.Instance.PrincessAttack += Env.SwordDamageUpgrade;
                         Env.Instance.PrincessEquipLeft = Env.Equips.IronSword;
+                        other.GetComponent<Tile>().EmptySlot();
                     } else if (currentSlot == Env.Slots.Shield) {
                         other.GetComponent<Tile>().StatusPickup();
                         Env.Instance.PrincessDefense += Env.ShieldDefenseUpgrade;
                         Env.Instance.PrincessEquipLeft = Env.Equips.IronShield;
+                        other.GetComponent<Tile>().EmptySlot();
                     } else if (currentSlot == Env.Slots.Slime) {
-                        if (Env.Instance.PrincessHealth - (Env.SlimeAttack - Env.Instance.PrincessDefense) <= 0) {
+                        Slime slime = other.GetComponent<Tile>().transform.Find("Slot").transform.Find("Slime").GetComponent<Slime>();
+                        if (Env.Instance.PrincessHealth - Mathf.Max(slime.Attack - Env.Instance.PrincessDefense, 0) <= 0) {
                             Env.Instance.ResetLevel();
                         } else {
-                            Env.Instance.PrincessHealth -= (Env.SlimeAttack - Env.Instance.PrincessDefense);
-                            Env.Instance.PrincessXP += Env.SlimeXPGain;
+                            Env.Instance.PrincessHealth -= Mathf.Max(slime.Attack - Env.Instance.PrincessDefense, 0);
                             Env.Instance.CheckPrincessLevel();
-                            other.GetComponent<Tile>().Explode();
+                            slime.Health -= Env.Instance.PrincessAttack - slime.Defense;
+                            if (slime.Health <= 0) {
+                                Env.Instance.PrincessXP += slime.XPGain;
+                                other.GetComponent<Tile>().Explode();
+                                other.GetComponent<Tile>().EmptySlot();
+                            } else {
+                                KickPrincessToStart();
+                            }
+                        }
+                    } else if (currentSlot == Env.Slots.Ghost) {
+                        Ghost ghost = other.GetComponent<Tile>().transform.Find("Slot").transform.Find("Ghost").GetComponent<Ghost>();
+                        if (Env.Instance.PrincessHealth - Mathf.Max(ghost.Attack - Env.Instance.PrincessDefense, 0) <= 0) {
+                            Env.Instance.ResetLevel();
+                        } else {
+                            Env.Instance.PrincessHealth -= Mathf.Max(ghost.Attack - Env.Instance.PrincessDefense, 0);
+                            Env.Instance.CheckPrincessLevel();
+                            ghost.Health -= Env.Instance.PrincessAttack - ghost.Defense;
+                            if (ghost.Health <= 0) {
+                                Env.Instance.PrincessXP += ghost.XPGain;
+                                other.GetComponent<Tile>().Explode();
+                                other.GetComponent<Tile>().EmptySlot();
+                            } else {
+                                KickPrincessToStart();
+                            }
+                        }
+                    } else if (currentSlot == Env.Slots.Troll) {
+                        Troll troll = other.GetComponent<Tile>().transform.Find("Slot").transform.Find("Troll").GetComponent<Troll>();
+                        if (Env.Instance.PrincessHealth - Mathf.Max(troll.Attack - Env.Instance.PrincessDefense, 0) <= 0) {
+                            Env.Instance.ResetLevel();
+                        } else {
+                            Env.Instance.PrincessHealth -= Mathf.Max(troll.Attack - Env.Instance.PrincessDefense, 0);
+                            Env.Instance.CheckPrincessLevel();
+                            troll.Health -= Env.Instance.PrincessAttack - troll.Defense;
+                            if (troll.Health <= 0) {
+                                Env.Instance.PrincessXP += troll.XPGain;
+                                other.GetComponent<Tile>().Explode();
+                                other.GetComponent<Tile>().EmptySlot();
+                            } else {
+                                KickPrincessToStart();
+                            }
                         }
                     }
-
-                    other.GetComponent<Tile>().EmptySlot();
                 }
             }
             if (other.tag == "Gate") {
@@ -179,9 +225,15 @@ public class Princess : MonoBehaviour
     }
 
     public void SendPrincessToStart () {
+        beingKickedToStart = false;
         this.transform.position = Env.Instance.PrincessStartingPosition;
         walking = true;
         heading = Env.Paths.North;
+    }
+
+    public void KickPrincessToStart () {
+        beingKickedToStart = true;
+        beingKickedXMidPoint = (this.transform.position.x + Env.Instance.PrincessStartingPosition.x) / 2;
     }
 
     void Start () {
@@ -190,38 +242,67 @@ public class Princess : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (walking) {
-            HopAnimation();
-            // TurnAnimation();
+        if (beingKickedToStart) {
+            float xMove = 0f;
+            float zMove = 0f;
+            float yMove = 0f;
 
-            if (heading == Env.Paths.North) {
-                this.transform.Translate((new Vector3(Env.Instance.PrincessSpeed, 0f, 0f)));
-                this.transform.Find("Mesh").rotation = Quaternion.Euler(0, -90, 0);
-            } else if (heading == Env.Paths.South) {
-                this.transform.Translate((new Vector3(-Env.Instance.PrincessSpeed, 0f, 0f)));
-                this.transform.Find("Mesh").rotation = Quaternion.Euler(0, 90, 0);
-            } else if (heading == Env.Paths.West) {
-                this.transform.Translate((new Vector3(0f, 0f, Env.Instance.PrincessSpeed)));
-                this.transform.Find("Mesh").rotation = Quaternion.Euler(0, 180, 0);
-            } else if (heading == Env.Paths.East) {
-                this.transform.Translate((new Vector3(0f, 0f, -Env.Instance.PrincessSpeed)));
-                this.transform.Find("Mesh").rotation = Quaternion.Euler(0, -180, 0);
+            if (this.transform.position.x > Env.Instance.PrincessStartingPosition.x) {
+                xMove = Mathf.Min(kickSpeed, this.transform.position.x - Env.Instance.PrincessStartingPosition.x);
+            }
+            if (this.transform.position.z > Env.Instance.PrincessStartingPosition.z) {
+                zMove = Mathf.Min(kickSpeed, this.transform.position.z - Env.Instance.PrincessStartingPosition.z);
             }
 
-            if (enteringTile) {
-                tileTraversed += Env.Instance.PrincessSpeed;
+            if (this.transform.position.x > beingKickedXMidPoint) {
+                yMove = kickUpSpeed;
+            } else {
+                if (this.transform.position.y > kickUpSpeed) {
+                    yMove = -kickUpSpeed;
+                }
             }
 
-            if (tileTraversed >= Env.TileSize / 2) {
-                enteringTile = false;
-                tileTraversed = 0f;
-                HeadToExit();
+            if (xMove <= 0f && zMove <= 0f) {
+                beingKickedToStart = false;
+                this.transform.position = new Vector3(this.transform.position.x, Env.Instance.PrincessStartingPosition.y, this.transform.position.z);
+                heading = Env.Paths.North;
+            } else {
+                this.transform.Translate(new Vector3(-xMove, yMove, -zMove));
             }
-        }
-        if (exitedTile) {
-            traversedAfterExitingTile += Env.Instance.PrincessSpeed;
-            if (traversedAfterExitingTile > Env.TileSize + (Env.TileGridGap * 2)) {
-                Env.Instance.ResetLevel();
+        } else {
+            if (walking) {
+                HopAnimation();
+                // TurnAnimation();
+
+                if (heading == Env.Paths.North) {
+                    this.transform.Translate((new Vector3(Env.Instance.PrincessSpeed, 0f, 0f)));
+                    this.transform.Find("Mesh").rotation = Quaternion.Euler(0, -90, 0);
+                } else if (heading == Env.Paths.South) {
+                    this.transform.Translate((new Vector3(-Env.Instance.PrincessSpeed, 0f, 0f)));
+                    this.transform.Find("Mesh").rotation = Quaternion.Euler(0, 90, 0);
+                } else if (heading == Env.Paths.West) {
+                    this.transform.Translate((new Vector3(0f, 0f, Env.Instance.PrincessSpeed)));
+                    this.transform.Find("Mesh").rotation = Quaternion.Euler(0, 180, 0);
+                } else if (heading == Env.Paths.East) {
+                    this.transform.Translate((new Vector3(0f, 0f, -Env.Instance.PrincessSpeed)));
+                    this.transform.Find("Mesh").rotation = Quaternion.Euler(0, -180, 0);
+                }
+
+                if (enteringTile) {
+                    tileTraversed += Env.Instance.PrincessSpeed;
+                }
+
+                if (tileTraversed >= Env.TileSize / 2) {
+                    enteringTile = false;
+                    tileTraversed = 0f;
+                    HeadToExit();
+                }
+            }
+            if (exitedTile) {
+                traversedAfterExitingTile += Env.Instance.PrincessSpeed;
+                if (traversedAfterExitingTile > Env.TileSize + (Env.TileGridGap * 2)) {
+                    Env.Instance.ResetLevel();
+                }
             }
         }
     }

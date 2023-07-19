@@ -307,7 +307,7 @@ GameObject:
   - component: {fileID: 8821307868116807816}
   - component: {fileID: 223621207930635912}
   m_Layer: 5
-  m_Name: Ghost Status
+  m_Name: GhostStatus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6038,6 +6038,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3917475689086994082}
+  - component: {fileID: 7114780148840107485}
   m_Layer: 0
   m_Name: Slime
   m_TagString: Untagged
@@ -6062,6 +6063,22 @@ Transform:
   m_Father: {fileID: 4058514319846803461}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7114780148840107485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2552317645534011425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bac33e19d1185b4a814bfa8c0ccb865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 1
+  Attack: 1
+  Defense: 0
+  XPGain: 10
 --- !u!1 &2776355439135419930
 GameObject:
   m_ObjectHideFlags: 0
@@ -11485,7 +11502,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4761038553175217443}
-  - component: {fileID: 887546319435736412}
   m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
@@ -11513,18 +11529,6 @@ Transform:
   m_Father: {fileID: 5450817666764356254}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &887546319435736412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3365591649089506578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04dc59e95f476544885a9c281fa8761a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3429004876994398386
 GameObject:
   m_ObjectHideFlags: 0
@@ -27869,6 +27873,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5450817666764356254}
+  - component: {fileID: 5827423325617823363}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: Untagged
@@ -27893,6 +27898,22 @@ Transform:
   m_Father: {fileID: 4058514319846803461}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5827423325617823363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5350608124968768454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a3da55094270f9499d19a4c49c93be5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 3
+  Attack: 2
+  Defense: 1
+  XPGain: 20
 --- !u!1 &5514459416252764761
 GameObject:
   m_ObjectHideFlags: 0
@@ -34305,6 +34326,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7877820420906376951}
+  - component: {fileID: 4271679349105990765}
   m_Layer: 0
   m_Name: Troll
   m_TagString: Untagged
@@ -34329,6 +34351,22 @@ Transform:
   m_Father: {fileID: 4058514319846803461}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4271679349105990765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7914171741193701391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48cc520999a75344ba366d95d8d6c730, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 6
+  Attack: 4
+  Defense: 2
+  XPGain: 40
 --- !u!1 &7959763652105258856
 GameObject:
   m_ObjectHideFlags: 0
@@ -34616,7 +34654,7 @@ GameObject:
   - component: {fileID: 5351294432263620498}
   - component: {fileID: 3653855936180510602}
   m_Layer: 5
-  m_Name: Troll Status
+  m_Name: TrollStatus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34852,7 +34890,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3608856925559138390}
-  - component: {fileID: 4543190945293457378}
   m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
@@ -34880,18 +34917,6 @@ Transform:
   m_Father: {fileID: 7877820420906376951}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4543190945293457378
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9215110026828095396}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04dc59e95f476544885a9c281fa8761a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1078534011713032585
 PrefabInstance:
   m_ObjectHideFlags: 0
