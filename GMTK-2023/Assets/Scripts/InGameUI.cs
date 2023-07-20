@@ -24,9 +24,9 @@ public class InGameUI : MonoBehaviour
         Button buttonPathEastNorth = root.Q<Button>("PathEastNorth");
         Button buttonPathWestNorth = root.Q<Button>("PathWestNorth");
 
-        Button buttonSword = root.Q<Button>("SwordButton");
-        Button buttonShield = root.Q<Button>("ShieldButton");
-        Button buttonPotion = root.Q<Button>("PotionButton");
+        Button buttonSword = root.Q<Button>("Sword");
+        Button buttonShield = root.Q<Button>("Shield");
+        Button buttonPotion = root.Q<Button>("Potion");
 
         Button buttonReset = root.Q<Button>("ResetButton");
         Button buttonFullReset = root.Q<Button>("FullResetButton");
