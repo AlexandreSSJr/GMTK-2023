@@ -29,7 +29,9 @@ public class InGameUI : MonoBehaviour
         Button buttonPotion = root.Q<Button>("PotionButton");
 
         Button buttonReset = root.Q<Button>("ResetButton");
-        Button buttonFastforward = root.Q<Button>("FastforwardButton");
+        Button buttonFullReset = root.Q<Button>("FullResetButton");
+        Button buttonPause = root.Q<Button>("PauseButton");
+        Button buttonFastForward = root.Q<Button>("FastForwardButton");
 
         labelCoins = root.Q<Label>("GoldValue");
         labelPrincessTitle = root.Q<Label>("PrincessTitle");
@@ -50,7 +52,9 @@ public class InGameUI : MonoBehaviour
         buttonPotion.clicked += () => OnPotionClicked();
 
         buttonReset.clicked += () => OnResetClicked();
-        buttonFastforward.clicked += () => OnFastforwardClicked();
+        buttonFullReset.clicked += () => OnFullResetClicked();
+        buttonPause.clicked += () => OnPauseClicked();
+        buttonFastForward.clicked += () => OnFastForwardClicked();
     }
 
     private void OnPathSouthNorthClicked()
@@ -121,7 +125,21 @@ public class InGameUI : MonoBehaviour
         Env.Instance.ResetLevel();
     }
 
-    private void OnFastforwardClicked()
+    private void OnFullResetClicked()
+    {
+        Env.Instance.FullReset();
+    }
+
+    private void OnPauseClicked()
+    {
+        if (Env.Instance.PrincessSpeed > 0) {
+            Env.Instance.PrincessSpeed = 0;
+        } else {
+            Env.Instance.PrincessSpeed = Env.Instance.PrincessInitialSpeed;
+        }
+    }
+
+    private void OnFastForwardClicked()
     {
         Env.Instance.PrincessSpeed += Env.Instance.PrincessSpeedIncreaseAmount;
     }

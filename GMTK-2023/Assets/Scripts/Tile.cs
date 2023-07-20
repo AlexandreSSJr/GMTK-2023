@@ -30,6 +30,10 @@ public class Tile : MonoBehaviour
         this.transform.Find("StatusPickup").GetComponent<ParticleSystem>().Play();
     }
 
+    public void HealthPickup () {
+        this.transform.Find("HealthPickup").GetComponent<ParticleSystem>().Play();
+    }
+
     void OnMouseDown () {
         if (!locked && Env.Instance.pathEntrySelection != Env.Paths.Empty && Env.Instance.pathExitSelection != Env.Paths.Empty && Env.Instance.Coins >= Env.PathBuildCost && (entry != Env.Instance.pathEntrySelection || exit != Env.Instance.pathExitSelection)) {
             entry = Env.Instance.pathEntrySelection;
