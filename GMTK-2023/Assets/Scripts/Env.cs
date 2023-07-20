@@ -156,12 +156,12 @@ public class Env : MonoBehaviour
     public void ResetLevel () {
         Coins = CoinsAtStartOfLevel;
         PrincessSpeed = PrincessInitialSpeed;
-        PrincessLevel = 1;
-        PrincessXP = 0;
-        PrincessMaxHealth = 3;
-        PrincessHealth = 3;
-        PrincessAttack = 1;
-        PrincessDefense = 0;
+        PrincessLevel = PrincessLevelAtStartOfLevel;
+        PrincessXP = PrincessXPAtStartOfLevel;
+        PrincessMaxHealth = PrincessMaxHealthAtStartOfLevel;
+        PrincessHealth = PrincessHealthAtStartOfLevel;
+        PrincessAttack = PrincessAttackAtStartOfLevel;
+        PrincessDefense = PrincessDefenseAtStartOfLevel;
 
         this.transform.Find("Grid").GetComponent<Grid>().BuildLevel();
         this.transform.Find("Princess").GetComponent<Princess>().SendPrincessToStart();
@@ -171,12 +171,12 @@ public class Env : MonoBehaviour
         Level = 0;
         Coins = 50;
         PrincessSpeed = PrincessInitialSpeed;
-        PrincessLevel = PrincessLevelAtStartOfLevel;
-        PrincessXP = PrincessXPAtStartOfLevel;
-        PrincessMaxHealth = PrincessMaxHealthAtStartOfLevel;
-        PrincessHealth = PrincessHealthAtStartOfLevel;
-        PrincessAttack = PrincessAttackAtStartOfLevel;
-        PrincessDefense = PrincessDefenseAtStartOfLevel;
+        PrincessLevel = 1;
+        PrincessXP = 0;
+        PrincessMaxHealth = 3;
+        PrincessHealth = 3;
+        PrincessAttack = 1;
+        PrincessDefense = 0;
 
         this.transform.Find("Grid").GetComponent<Grid>().BuildLevel();
         this.transform.Find("Princess").GetComponent<Princess>().SendPrincessToStart();
