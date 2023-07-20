@@ -105,10 +105,10 @@ public class Princess : MonoBehaviour
                 Env.Instance.ResetLevel();
             } else {
                 Env.Instance.PrincessHealth -= Mathf.Max(slime.Attack - Env.Instance.PrincessDefense, 0);
-                Env.Instance.CheckPrincessLevel();
                 slime.Health -= Env.Instance.PrincessAttack - slime.Defense;
                 if (slime.Health <= 0) {
                     Env.Instance.PrincessXP += slime.XPGain;
+                    Env.Instance.CheckPrincessLevel();
                     other.GetComponent<Tile>().Explode();
                     other.GetComponent<Tile>().EmptySlot();
                 } else {
@@ -121,10 +121,10 @@ public class Princess : MonoBehaviour
                 Env.Instance.ResetLevel();
             } else {
                 Env.Instance.PrincessHealth -= Mathf.Max(ghost.Attack - Env.Instance.PrincessDefense, 0);
-                Env.Instance.CheckPrincessLevel();
                 ghost.Health -= Env.Instance.PrincessAttack - ghost.Defense;
                 if (ghost.Health <= 0) {
                     Env.Instance.PrincessXP += ghost.XPGain;
+                    Env.Instance.CheckPrincessLevel();
                     other.GetComponent<Tile>().Explode();
                     other.GetComponent<Tile>().EmptySlot();
                 } else {
@@ -137,10 +137,10 @@ public class Princess : MonoBehaviour
                 Env.Instance.ResetLevel();
             } else {
                 Env.Instance.PrincessHealth -= Mathf.Max(troll.Attack - Env.Instance.PrincessDefense, 0);
-                Env.Instance.CheckPrincessLevel();
                 troll.Health -= Env.Instance.PrincessAttack - troll.Defense;
                 if (troll.Health <= 0) {
                     Env.Instance.PrincessXP += troll.XPGain;
+                    Env.Instance.CheckPrincessLevel();
                     other.GetComponent<Tile>().Explode();
                     other.GetComponent<Tile>().EmptySlot();
                 } else {

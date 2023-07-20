@@ -5,7 +5,7 @@ public class InGameUI : MonoBehaviour
 {
     Label labelCoins;
     Label labelPrincessTitle;
-    Label labelPrincessLevel;
+    Label labelPrincessSubtitle;
     Label labelPrincessHealth;
     Label labelPrincessAttack;
     Label labelPrincessDefense;
@@ -35,7 +35,7 @@ public class InGameUI : MonoBehaviour
 
         labelCoins = root.Q<Label>("GoldValue");
         labelPrincessTitle = root.Q<Label>("PrincessTitle");
-        labelPrincessLevel = root.Q<Label>("PrincessLevel");
+        labelPrincessSubtitle = root.Q<Label>("PrincessSubtitle");
         labelPrincessHealth = root.Q<Label>("PrincessHealth");
         labelPrincessAttack = root.Q<Label>("PrincessAttack");
         labelPrincessDefense = root.Q<Label>("PrincessDefense");
@@ -104,6 +104,7 @@ public class InGameUI : MonoBehaviour
         Env.Instance.pathEntrySelection = Env.Paths.Empty;
         Env.Instance.pathExitSelection = Env.Paths.Empty;
         Env.Instance.itemSelection = Env.Slots.Sword;
+        Env.Instance.itemSelectionCost = Env.SwordBuildCost;
     }
 
     private void OnShieldClicked()
@@ -111,6 +112,7 @@ public class InGameUI : MonoBehaviour
         Env.Instance.pathEntrySelection = Env.Paths.Empty;
         Env.Instance.pathExitSelection = Env.Paths.Empty;
         Env.Instance.itemSelection = Env.Slots.Shield;
+        Env.Instance.itemSelectionCost = Env.ShieldBuildCost;
     }
 
     private void OnPotionClicked()
@@ -118,6 +120,7 @@ public class InGameUI : MonoBehaviour
         Env.Instance.pathEntrySelection = Env.Paths.Empty;
         Env.Instance.pathExitSelection = Env.Paths.Empty;
         Env.Instance.itemSelection = Env.Slots.Potion;
+        Env.Instance.itemSelectionCost = Env.PotionBuildCost;
     }
 
     private void OnResetClicked()
@@ -148,7 +151,7 @@ public class InGameUI : MonoBehaviour
     {
         labelCoins.text = Env.Instance.Coins.ToString();
         labelPrincessTitle.text = "Princess ( Lv. " + Env.Instance.PrincessLevel.ToString() + " )";
-        labelPrincessLevel.text = Env.Instance.PrincessXP.ToString() + " xp";
+        labelPrincessSubtitle.text = "xp: " + Env.Instance.PrincessXP.ToString() + " / " + (Env.Instance.PrincessLevelUpXPCosts[Env.Instance.PrincessLevel]).ToString();
         labelPrincessHealth.text = Env.Instance.PrincessHealth.ToString() + " / " + Env.Instance.PrincessMaxHealth.ToString();
         labelPrincessAttack.text = Env.Instance.PrincessAttack.ToString();
         labelPrincessDefense.text = Env.Instance.PrincessDefense.ToString();

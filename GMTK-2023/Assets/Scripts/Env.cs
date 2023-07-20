@@ -52,7 +52,7 @@ public class Env : MonoBehaviour
     public Env.Paths pathEntrySelection = Env.Paths.Empty;
     public Env.Paths pathExitSelection = Env.Paths.Empty;
     public Env.Slots itemSelection = Env.Slots.Empty;
-    public int itemSelectionCost = 0;
+    public int itemSelectionCost = 30;
 
     public const int CoinsAmount = 50;
     public const int SwordDamageUpgrade = 1;
