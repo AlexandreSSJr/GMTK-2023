@@ -18,10 +18,10 @@ public class Env : MonoBehaviour
     public bool CountTimer = true;
     public int Level = 0;
     public int FirstLevel = 0;
-    public int LastLevel = 7;
+    public int LastLevel = 8;
 
-    public int[] LevelsTileHorizontalConfig = {3, 1, 2, 3, 4, 3, 4, 4};
-    public int[] LevelsTileVerticalConfig = {1, 3, 2, 2, 2, 3, 3, 4};
+    public int[] LevelsTileHorizontalConfig = {3, 1, 2, 3, 4, 3, 4, 4, 4};
+    public int[] LevelsTileVerticalConfig = {1, 3, 2, 2, 2, 3, 3, 4, 3};
 
     public int Coins = 50;
     public int CoinsAtStartOfLevel = 50;

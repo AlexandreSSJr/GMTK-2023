@@ -147,6 +147,22 @@ public class Princess : MonoBehaviour
                     KickPrincessToStart();
                 }
             }
+        } else if (currentSlot == Env.Slots.Knight) {
+            Knight knight = other.GetComponent<Tile>().transform.Find("Slot").transform.Find("Knight").GetComponent<Knight>();
+            if (Env.Instance.PrincessHealth - Mathf.Max(knight.Attack - Env.Instance.PrincessDefense, 0) <= 0) {
+                Env.Instance.ResetLevel();
+            } else {
+                Env.Instance.PrincessHealth -= Mathf.Max(knight.Attack - Env.Instance.PrincessDefense, 0);
+                knight.Health -= Env.Instance.PrincessAttack - knight.Defense;
+                if (knight.Health <= 0) {
+                    Env.Instance.PrincessXP += knight.XPGain;
+                    Env.Instance.CheckPrincessLevel();
+                    other.GetComponent<Tile>().Explode();
+                    other.GetComponent<Tile>().EmptySlot();
+                } else {
+                    KickPrincessToStart();
+                }
+            }
         }
     }
 
@@ -277,7 +293,7 @@ public class Princess : MonoBehaviour
                 this.transform.Translate(new Vector3(-xMove, yMove, -zMove));
             }
         } else {
-            if (walking) {
+            if (walking && Env.Instance.PrincessSpeed > 0) {
                 HopAnimation();
                 // TurnAnimation();
 
@@ -299,7 +315,7 @@ public class Princess : MonoBehaviour
                     tileTraversed += Env.Instance.PrincessSpeed;
                 }
 
-                if (tileTraversed >= Env.TileSize / 2) {
+                if (tileTraversed > (Env.TileSize / 2) + Env.TileGridGap ) {
                     enteringTile = false;
                     tileTraversed = 0f;
                     HeadToExit();

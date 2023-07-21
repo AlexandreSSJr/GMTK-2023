@@ -7,6 +7,7 @@ public class Tile : MonoBehaviour
     public Env.Slots slot = Env.Slots.Empty;
 
     public bool locked = false;
+    public bool pathLocked = false;
 
     private void RandomizeRotation () {
         int rand = Random.Range(0, 4);
@@ -35,7 +36,7 @@ public class Tile : MonoBehaviour
     }
 
     void OnMouseDown () {
-        if (!locked && Env.Instance.pathEntrySelection != Env.Paths.Empty && Env.Instance.pathExitSelection != Env.Paths.Empty && Env.Instance.Coins >= Env.PathBuildCost && (entry != Env.Instance.pathEntrySelection || exit != Env.Instance.pathExitSelection)) {
+        if (!locked && !pathLocked && Env.Instance.pathEntrySelection != Env.Paths.Empty && Env.Instance.pathExitSelection != Env.Paths.Empty && Env.Instance.Coins >= Env.PathBuildCost && (entry != Env.Instance.pathEntrySelection || exit != Env.Instance.pathExitSelection)) {
             entry = Env.Instance.pathEntrySelection;
             exit = Env.Instance.pathExitSelection;
             Env.Instance.Coins -= Env.PathBuildCost;
