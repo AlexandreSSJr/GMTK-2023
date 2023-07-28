@@ -82,20 +82,24 @@ public class Princess : MonoBehaviour
 
         if (currentSlot == Env.Slots.Coins) {
             Env.Instance.Coins += Env.CoinsAmount;
+            Env.Instance.PlayCoinsSound();
             other.GetComponent<Tile>().CoinPickup();
             other.GetComponent<Tile>().EmptySlot();
         } else if (currentSlot == Env.Slots.Potion) {
             if (Env.Instance.PrincessHealth + Env.PotionHealingAmount <= Env.Instance.PrincessMaxHealth) {
                 Env.Instance.PrincessHealth += Env.PotionHealingAmount;
+                Env.Instance.PlayPotionSound();
                 other.GetComponent<Tile>().HealthPickup();
                 other.GetComponent<Tile>().EmptySlot();
             }
         } else if (currentSlot == Env.Slots.Sword) {
             other.GetComponent<Tile>().StatusPickup();
+            Env.Instance.PlaySwordSound();
             Env.Instance.PrincessAttack += Env.SwordDamageUpgrade;
             Env.Instance.PrincessEquipLeft = Env.Equips.IronSword;
             other.GetComponent<Tile>().EmptySlot();
         } else if (currentSlot == Env.Slots.Shield) {
+            Env.Instance.PlayShieldSound();
             other.GetComponent<Tile>().StatusPickup();
             Env.Instance.PrincessDefense += Env.ShieldDefenseUpgrade;
             Env.Instance.PrincessEquipLeft = Env.Equips.IronShield;
@@ -108,10 +112,12 @@ public class Princess : MonoBehaviour
                 walking = false;
             } else if (walking) {
                 Env.Instance.PrincessHealth -= Mathf.Max(slime.Attack - Env.Instance.PrincessDefense, 0);
+                Env.Instance.PlayAttackSound();
                 slime.Health -= Env.Instance.PrincessAttack - slime.Defense;
                 if (slime.Health <= 0) {
                     Env.Instance.PrincessXP += slime.XPGain;
                     Env.Instance.CheckPrincessLevel();
+                    Env.Instance.PlaySlimeSound();
                     other.GetComponent<Tile>().Explode();
                     other.GetComponent<Tile>().EmptySlot();
                 } else {
@@ -126,10 +132,12 @@ public class Princess : MonoBehaviour
                 walking = false;
             } else if (walking) {
                 Env.Instance.PrincessHealth -= Mathf.Max(ghost.Attack - Env.Instance.PrincessDefense, 0);
+                Env.Instance.PlayAttackSound();
                 ghost.Health -= Env.Instance.PrincessAttack - ghost.Defense;
                 if (ghost.Health <= 0) {
                     Env.Instance.PrincessXP += ghost.XPGain;
                     Env.Instance.CheckPrincessLevel();
+                    Env.Instance.PlayGhostSound();
                     other.GetComponent<Tile>().Explode();
                     other.GetComponent<Tile>().EmptySlot();
                 } else {
@@ -144,10 +152,12 @@ public class Princess : MonoBehaviour
                 walking = false;
             } else if (walking) {
                 Env.Instance.PrincessHealth -= Mathf.Max(troll.Attack - Env.Instance.PrincessDefense, 0);
+                Env.Instance.PlayAttackSound();
                 troll.Health -= Env.Instance.PrincessAttack - troll.Defense;
                 if (troll.Health <= 0) {
                     Env.Instance.PrincessXP += troll.XPGain;
                     Env.Instance.CheckPrincessLevel();
+                    Env.Instance.PlayTrollSound();
                     other.GetComponent<Tile>().Explode();
                     other.GetComponent<Tile>().EmptySlot();
                 } else {
@@ -162,6 +172,7 @@ public class Princess : MonoBehaviour
                 walking = false;
             } else if (walking) {
                 Env.Instance.PrincessHealth -= Mathf.Max(knight.Attack - Env.Instance.PrincessDefense, 0);
+                Env.Instance.PlayAttackSound();
                 knight.Health -= Env.Instance.PrincessAttack - knight.Defense;
                 if (knight.Health <= 0) {
                     Env.Instance.PrincessXP += knight.XPGain;

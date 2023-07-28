@@ -66,6 +66,15 @@ public class Env : MonoBehaviour
     public Animator resetTransition;
     public float transitionTime = 1f;
 
+    public AudioClip attack;
+    public AudioClip coins;
+    public AudioClip potion;
+    public AudioClip sword;
+    public AudioClip shield;
+    public AudioClip slime;
+    public AudioClip ghost;
+    public AudioClip troll;
+
     void Controls () {
         if (Input.GetKeyDown("1"))
         {
@@ -191,6 +200,46 @@ public class Env : MonoBehaviour
 
         this.transform.Find("Grid").GetComponent<Grid>().BuildLevel();
         this.transform.Find("Princess").GetComponent<Princess>().SendPrincessToStart();
+    }
+
+    public void PlayAttackSound () {
+        GetComponent<AudioSource>().clip = attack;
+        GetComponent<AudioSource>().Play();
+    }
+
+    public void PlayCoinsSound () {
+        GetComponent<AudioSource>().clip = coins;
+        GetComponent<AudioSource>().Play();
+    }
+
+    public void PlayPotionSound () {
+        GetComponent<AudioSource>().clip = potion;
+        GetComponent<AudioSource>().Play();
+    }
+
+    public void PlaySwordSound () {
+        GetComponent<AudioSource>().clip = sword;
+        GetComponent<AudioSource>().Play();
+    }
+
+    public void PlayShieldSound () {
+        GetComponent<AudioSource>().clip = shield;
+        GetComponent<AudioSource>().Play();
+    }
+
+    public void PlaySlimeSound () {
+        GetComponent<AudioSource>().clip = slime;
+        GetComponent<AudioSource>().Play();
+    }
+
+    public void PlayGhostSound () {
+        GetComponent<AudioSource>().clip = ghost;
+        GetComponent<AudioSource>().Play();
+    }
+
+    public void PlayTrollSound () {
+        GetComponent<AudioSource>().clip = troll;
+        GetComponent<AudioSource>().Play();
     }
 
     private void Awake()
