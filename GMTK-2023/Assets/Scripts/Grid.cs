@@ -93,7 +93,9 @@ public class Grid : MonoBehaviour
         } else {
             if (i == 3 && j == 1) {
                 tile.GetComponent<Tile>().slot = Env.Slots.Knight;
-            } else if (rand < 3) {
+            } else if (rand < 2) {
+                tile.GetComponent<Tile>().slot = Env.Slots.Coins;
+            } else if (rand < 4) {
                 tile.GetComponent<Tile>().slot = Env.Slots.Troll;
             }
         }
@@ -108,7 +110,7 @@ public class Grid : MonoBehaviour
     private void PlaceGate () {
         Gate.transform.position = new Vector3((Env.Instance.LevelsTileHorizontalConfig[Env.Instance.Level] * Env.TileSize) + 1 - (zModifier / 2), 0, ((Env.Instance.LevelsTileVerticalConfig[Env.Instance.Level] - 1) * (Env.TileSize + Env.TileGridGap)) + (zModifier * 2));
         Gate.transform.Find("Message").gameObject.SetActive(false);
-        
+
         if (Env.Instance.Level >= 8) {
             Gate.transform.localScale = new Vector3(2, 2, 2);
         } else {

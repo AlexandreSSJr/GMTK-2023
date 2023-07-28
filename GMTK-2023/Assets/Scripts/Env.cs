@@ -66,8 +66,10 @@ public class Env : MonoBehaviour
     public Animator resetTransition;
     public float transitionTime = 1f;
 
+    public AudioClip path;
     public AudioClip attack;
     public AudioClip coins;
+    public AudioClip item;
     public AudioClip potion;
     public AudioClip sword;
     public AudioClip shield;
@@ -202,6 +204,11 @@ public class Env : MonoBehaviour
         this.transform.Find("Princess").GetComponent<Princess>().SendPrincessToStart();
     }
 
+    public void PlayPathSound () {
+        GetComponent<AudioSource>().clip = path;
+        GetComponent<AudioSource>().Play();
+    }
+
     public void PlayAttackSound () {
         GetComponent<AudioSource>().clip = attack;
         GetComponent<AudioSource>().Play();
@@ -209,6 +216,11 @@ public class Env : MonoBehaviour
 
     public void PlayCoinsSound () {
         GetComponent<AudioSource>().clip = coins;
+        GetComponent<AudioSource>().Play();
+    }
+
+    public void PlayItemSound () {
+        GetComponent<AudioSource>().clip = item;
         GetComponent<AudioSource>().Play();
     }
 

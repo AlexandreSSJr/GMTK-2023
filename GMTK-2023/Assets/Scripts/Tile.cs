@@ -40,11 +40,13 @@ public class Tile : MonoBehaviour
             entry = Env.Instance.pathEntrySelection;
             exit = Env.Instance.pathExitSelection;
             Env.Instance.Coins -= Env.PathBuildCost;
+            Env.Instance.PlayPathSound();
             this.transform.Find("Path").gameObject.GetComponent<Path>().CheckPaths();
         }
         if (!locked && slot == Env.Slots.Empty && Env.Instance.itemSelection != Env.Slots.Empty && Env.Instance.Coins >= Env.Instance.itemSelectionCost) {
             slot = Env.Instance.itemSelection;
             Env.Instance.Coins -= Env.Instance.itemSelectionCost;
+            Env.Instance.PlayItemSound();
             this.transform.Find("Slot").gameObject.GetComponent<Slot>().CheckSlot();
         }
     }

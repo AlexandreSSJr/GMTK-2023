@@ -7087,8 +7087,10 @@ MonoBehaviour:
   transition: {fileID: 1987031026}
   resetTransition: {fileID: 643274518}
   transitionTime: 1
+  path: {fileID: 8300000, guid: 8fcb3eda56626084fb34eeeef516528c, type: 3}
   attack: {fileID: 8300000, guid: 29ae498af6bf94f4e83a7458e3cd5beb, type: 3}
   coins: {fileID: 8300000, guid: b2e77536e614a1847b95d6a8ed5cd0fd, type: 3}
+  item: {fileID: 8300000, guid: ccf06c3d43029d54ca8474b9c0c670a4, type: 3}
   potion: {fileID: 8300000, guid: 5baf0acae467ed34ba7cdcf569b00d86, type: 3}
   sword: {fileID: 8300000, guid: a797bf31ee5516c4ba7ea9c9d1fc9114, type: 3}
   shield: {fileID: 8300000, guid: ae933d4c265b3de499b9fd36390b1426, type: 3}

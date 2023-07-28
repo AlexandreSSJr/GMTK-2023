@@ -14,22 +14,22 @@ public class MainCamera : MonoBehaviour
     void Update () {
         if (Env.Instance.Level < 1) {
             this.transform.position = new Vector3(0, 0, 0);
-            this.transform.GetComponent<Camera>().orthographicSize = 21;
+            this.transform.GetComponent<Camera>().orthographicSize = 25;
             this.transform.GetComponent<Camera>().backgroundColor = easyColor;
         } else if (Env.Instance.Level < 3) {
             this.transform.position = new Vector3(-10, 5, 0);
-            this.transform.GetComponent<Camera>().orthographicSize = 23;
+            this.transform.GetComponent<Camera>().orthographicSize = 27;
             this.transform.GetComponent<Camera>().backgroundColor = easyColor;
         } else if (Env.Instance.Level < 5) {
             this.transform.position = new Vector3(5, 5, 0);
             this.transform.GetComponent<Camera>().backgroundColor = mediumColor;
         } else if (Env.Instance.Level < 8) {
             this.transform.position = new Vector3(0, 10, 0);
-            this.transform.GetComponent<Camera>().orthographicSize = 25;
+            this.transform.GetComponent<Camera>().orthographicSize = 29;
             this.transform.GetComponent<Camera>().backgroundColor = hardColor;
         } else {
             this.transform.position = new Vector3(10, 0, 0);
-            this.transform.GetComponent<Camera>().orthographicSize = 25;
+            this.transform.GetComponent<Camera>().orthographicSize = 31;
             this.transform.GetComponent<Camera>().backgroundColor = bossColor;
         }
     }
