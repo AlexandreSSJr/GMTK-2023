@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class Env : MonoBehaviour
@@ -62,6 +61,10 @@ public class Env : MonoBehaviour
     public const int ShieldBuildCost = 30;
     public const int PotionBuildCost = 20;
     public const int PotionHealingAmount = 1;
+
+    public Animator transition;
+    public Animator resetTransition;
+    public float transitionTime = 1f;
 
     void Controls () {
         if (Input.GetKeyDown("1"))
@@ -151,6 +154,14 @@ public class Env : MonoBehaviour
         PrincessAttackAtStartOfLevel = PrincessAttack;
         PrincessDefenseAtStartOfLevel = PrincessDefense;
         ResetLevel();
+    }
+
+    public void PlayLevelTransition () {
+        transition.SetTrigger("Start");
+    }
+
+    public void PlayResetTransition () {
+        resetTransition.SetTrigger("Start");
     }
 
     public void ResetLevel () {

@@ -21,6 +21,7 @@ public class Princess : MonoBehaviour
     private float kickSpeed = 0.5f;
     private float kickUpSpeed = 0.2f;
     private float beingKickedXMidPoint = 0f;
+    private float levelTransitionDelay = 0.3f;
 
     private void CheckPathTraversal (Collider other) {
         if (other && other.GetComponent<Tile>() && other.GetComponent<Tile>().entry != Env.Paths.Empty && !beingKickedToStart) {
@@ -101,9 +102,11 @@ public class Princess : MonoBehaviour
             other.GetComponent<Tile>().EmptySlot();
         } else if (currentSlot == Env.Slots.Slime) {
             Slime slime = other.GetComponent<Tile>().transform.Find("Slot").transform.Find("Slime").GetComponent<Slime>();
-            if (Env.Instance.PrincessHealth - Mathf.Max(slime.Attack - Env.Instance.PrincessDefense, 0) <= 0) {
-                Env.Instance.ResetLevel();
-            } else {
+            if (Env.Instance.PrincessHealth - Mathf.Max(slime.Attack - Env.Instance.PrincessDefense, 0) <= 0 && walking) {
+                Invoke("ResetLevelTransition", levelTransitionDelay);
+                Invoke("PrincessFallen", Env.Instance.transitionTime + levelTransitionDelay);
+                walking = false;
+            } else if (walking) {
                 Env.Instance.PrincessHealth -= Mathf.Max(slime.Attack - Env.Instance.PrincessDefense, 0);
                 slime.Health -= Env.Instance.PrincessAttack - slime.Defense;
                 if (slime.Health <= 0) {
@@ -117,9 +120,11 @@ public class Princess : MonoBehaviour
             }
         } else if (currentSlot == Env.Slots.Ghost) {
             Ghost ghost = other.GetComponent<Tile>().transform.Find("Slot").transform.Find("Ghost").GetComponent<Ghost>();
-            if (Env.Instance.PrincessHealth - Mathf.Max(ghost.Attack - Env.Instance.PrincessDefense, 0) <= 0) {
-                Env.Instance.ResetLevel();
-            } else {
+            if (Env.Instance.PrincessHealth - Mathf.Max(ghost.Attack - Env.Instance.PrincessDefense, 0) <= 0 && walking) {
+                Invoke("ResetLevelTransition", levelTransitionDelay);
+                Invoke("PrincessFallen", Env.Instance.transitionTime + levelTransitionDelay);
+                walking = false;
+            } else if (walking) {
                 Env.Instance.PrincessHealth -= Mathf.Max(ghost.Attack - Env.Instance.PrincessDefense, 0);
                 ghost.Health -= Env.Instance.PrincessAttack - ghost.Defense;
                 if (ghost.Health <= 0) {
@@ -133,9 +138,11 @@ public class Princess : MonoBehaviour
             }
         } else if (currentSlot == Env.Slots.Troll) {
             Troll troll = other.GetComponent<Tile>().transform.Find("Slot").transform.Find("Troll").GetComponent<Troll>();
-            if (Env.Instance.PrincessHealth - Mathf.Max(troll.Attack - Env.Instance.PrincessDefense, 0) <= 0) {
-                Env.Instance.ResetLevel();
-            } else {
+            if (Env.Instance.PrincessHealth - Mathf.Max(troll.Attack - Env.Instance.PrincessDefense, 0) <= 0 && walking) {
+                Invoke("ResetLevelTransition", levelTransitionDelay);
+                Invoke("PrincessFallen", Env.Instance.transitionTime + levelTransitionDelay);
+                walking = false;
+            } else if (walking) {
                 Env.Instance.PrincessHealth -= Mathf.Max(troll.Attack - Env.Instance.PrincessDefense, 0);
                 troll.Health -= Env.Instance.PrincessAttack - troll.Defense;
                 if (troll.Health <= 0) {
@@ -149,9 +156,11 @@ public class Princess : MonoBehaviour
             }
         } else if (currentSlot == Env.Slots.Knight) {
             Knight knight = other.GetComponent<Tile>().transform.Find("Slot").transform.Find("Knight").GetComponent<Knight>();
-            if (Env.Instance.PrincessHealth - Mathf.Max(knight.Attack - Env.Instance.PrincessDefense, 0) <= 0) {
-                Env.Instance.ResetLevel();
-            } else {
+            if (Env.Instance.PrincessHealth - Mathf.Max(knight.Attack - Env.Instance.PrincessDefense, 0) <= 0 && walking) {
+                Invoke("ResetLevelTransition", levelTransitionDelay);
+                Invoke("PrincessFallen", Env.Instance.transitionTime + levelTransitionDelay);
+                walking = false;
+            } else if (walking) {
                 Env.Instance.PrincessHealth -= Mathf.Max(knight.Attack - Env.Instance.PrincessDefense, 0);
                 knight.Health -= Env.Instance.PrincessAttack - knight.Defense;
                 if (knight.Health <= 0) {
@@ -206,8 +215,26 @@ public class Princess : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter (Collider other)
-    {
+    void LevelCleared () {
+        SendPrincessToStart();
+        walking = true;
+        Env.Instance.GoToNextLevel();
+    }
+
+    void PrincessFallen () {
+        Env.Instance.ResetLevel();
+        walking = true;
+    }
+
+    void LevelTransition () {
+        Env.Instance.PlayLevelTransition();
+    }
+
+    void ResetLevelTransition () {
+        Env.Instance.PlayResetTransition();
+    }
+
+    void OnTriggerEnter (Collider other) {
         if (other) {
             if (other.tag == "Tile" && other.GetComponent<Tile>()) {
                 if (other.GetComponent<Tile>().entry != Env.Paths.Empty && other.GetComponent<Tile>().exit != Env.Paths.Empty) {
@@ -221,8 +248,16 @@ public class Princess : MonoBehaviour
                 }
             }
             if (other.tag == "Gate") {
-                SendPrincessToStart();
-                Env.Instance.GoToNextLevel();
+                if (Env.Instance.Level < 8) {
+                    walking = false;
+                    other.transform.Find("Message").gameObject.SetActive(true);
+                    Invoke("LevelTransition", levelTransitionDelay);
+                    Invoke("LevelCleared", Env.Instance.transitionTime + levelTransitionDelay);
+                } else {
+                    walking = false;
+                    LevelTransition();
+                    Invoke("LevelCleared", Env.Instance.transitionTime);
+                }
             }
         }
         exitedTile = false;
